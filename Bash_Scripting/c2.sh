@@ -11,3 +11,30 @@
 # You can also have your Bash script prompt for more information about the chosen thing. For instance, if someone picks cake, another prompt
 # can ask "What kind of cake?" and that prompt could be followed by a final response based on this input, such as, "Great choice.
 # Enjoy your cake!"
+
+#! /bin/bash
+
+# Prompt the user to choose from three options.
+echo "Choose one of the following:"
+echo "1. Cake"
+echo "2. Pizza"
+echo "3. Ice cream"
+read -p "Enter your choice (1-3): " choice
+
+# Process gthe user's choice using a case statement.
+case $choice in
+  1)
+    # Prompt for the kind of cake
+    read -p "What kind of cake? " cake_choice
+    echo "Great choice. Enjoy your $cake_choice cake!"
+    ;;
+  2)
+    echo "Pizza is always a good choice. Enjoy!"
+    ;;
+  3)
+    echo "Ice cream is a fantastic treat. Enjoy!"
+    ;;
+  *)
+    echo "Sorry, but that's not on the list. Pick another option."
+    ;;
+esac
