@@ -5,3 +5,16 @@
 # each directory in either ascending or descending order. For even more of a challenge, create a Bash script that sorts the contents of the directories
 # based on an "a" or "d" argument that directly precedes it. In other words, you should be able to sort one directory in ascending order, 
 # a second directory in descending order, and so on.
+
+#! /bin/bash
+
+# Function to list contents of directory
+  list_directory() {
+    local dir="$1"
+    local sort_order="$2"
+    
+    # Print directory name
+    echo "Directory: $dir"
+    
+    # Sort the contents based on sort_order
+    
