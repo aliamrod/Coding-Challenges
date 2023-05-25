@@ -38,3 +38,11 @@ case $choice in
     echo "Sorry, but that's not on the list. Pick another option."
     ;;
 esac
+
+
+# Save the script in a file, such as `choose_favorites.sh`, and make it executable using the command `chmod +x choose_favorites.sh`. When you run the script,
+# it will display the menu of options and prompt you to enter a choice.
+
+# Based on the selected option, it will either prompt for additional information or provide a response accordingly. If an option outside the range 1-3 is chosen, 
+# ir will display an appropriate error message. 
+
