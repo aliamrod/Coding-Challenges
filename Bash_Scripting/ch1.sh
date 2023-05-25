@@ -5,7 +5,7 @@
 
 
 #! /bin/bash
-# Check if an argument is provided
+# Check if an argument is provided.
 if [-n "$1" ]; then
   directory="$1"
 else
