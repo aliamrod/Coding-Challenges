@@ -32,3 +32,9 @@ fi
 
 # Call the countdown function with the provided number
 countdown "$1"
+
+## To add to the script...
+print_arguments() {
+  local IFS=$'\n'
+  echo "$*"
+}
