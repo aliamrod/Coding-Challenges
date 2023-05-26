@@ -46,5 +46,3 @@ done
 
 # This will consequently list the contents of `directory1` in ascending order and the contents of `directory2` in descending order. If no sort order is specified, the script
 # will default to listing the contents without sorting.
-  
-  
