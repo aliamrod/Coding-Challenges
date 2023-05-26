@@ -91,3 +91,4 @@ set_alarm "$alarm_time" "$snooze_time"
 # Specify the path to the audio file
 # play_audio_file "/path/to/audio/file.mp3"
 
+./alarm.sh <alarm_time> [snooze_time]
