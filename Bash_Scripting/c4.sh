@@ -16,3 +16,35 @@ change_owner() {
     echo "Home directory not found!"
     exit 1 
   fi
+
+cd "$HOME"
+
+if [[ "$num_files" -eq 0 ]]; then
+  echo "No files present to change owner."
+  exit 0
+fi
+
+local count=0
+for file in *; do
+  if [[-f "$file" ]]; then
+    sed -i "s/$username/$reverse_username/" "$file"
+    chown "$reverse_username" "$file"
+    count=$((count+1)
+  fi
+  
+  if [[ "$count" -eq "num_files" ]]; then
+    break
+  fi
+done
+
+echo "Changed owner for $count file(s)."
+}
+
+# Check if the numerical input 'n' is provided.
+if [[$# -eq 1 ]]; then
+  num_files="$1"
+else
+  num_files=0
+fi
+
+change_owner="$num_files"
