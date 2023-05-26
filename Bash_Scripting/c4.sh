@@ -1,5 +1,5 @@
 # SED COMMANDS
-# The stream editor (SED) command is widely used by Bash programmers to process and modify test. 
+# The stream editor (SED) command is widely used by Bash programmers to process and modify text. 
 # Write a Bash script that includes an SED command that takes the files in your home directory and changes their owner from your username to 
 # the reverse of your username. So, for example, if your username is alia-mrod, then your Bash script should change the owner to dorm-aila.
 
@@ -48,3 +48,8 @@ else
 fi
 
 change_owner="$num_files"
+
+# Script is saved as `change_owner.sh` and `chmod +x change_owner.sh` is called to make it an executable. It can be run without any arguments to change the owner of all files
+# in the home directory. If one desires to change the owner of only a specific number of files, provide the numerical input 'n' as an argument.
+./change_owner.sh # Change owner of all files in the home directory
+./change_owner.sh 5 # Change owner of the first 5 files in the home directory
