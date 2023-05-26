@@ -45,3 +45,8 @@ $sender
 # `<Recipient> <Due Date> <Day> <Closing> <Sender>`. For instance,
 # `./tps_report.sh "John Doe" "Friday" "5:00 PM" "Your prompt action is vital." "Jane Smith"` will generate the email message
 # with customized values.
+
+
+# To add a few more enhancements, 
+# Uses `check_argument` function to check if an argument is empty and assign the default value if necessary. It also allows 
+# for individual customization of each argument by checking if the corresponding argument is provided.
