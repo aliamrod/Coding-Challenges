@@ -6,3 +6,29 @@
 
 # Looking for something a little more challenging, try creating a Bash function that accepts any number of arguments. The output should print out
 # each argument on a new line. Your Bash script should use the echo command only once.
+
+#! /bin/bash
+
+countdown() {
+  local number=$1
+  
+  if ((number >= 0 )); then
+    echo "$number"
+    countdown "$((number - 1))"
+  
+  if ((number >= 0 )); then
+    echo "$number"
+    countdown "$((number - 1))"
+  else
+    echo "Blast off!"
+  fi
+}
+
+# Check if an argument is provided 
+if [[ $# -lt 1 ]]; then
+  echo "Usage: $0 <number>"
+  exit 1
+fi
+
+# Call the countdown function with the provided number
+countdown "$1"
