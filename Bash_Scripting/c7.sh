@@ -50,8 +50,44 @@ set_alarm(){
   # Check if a snooze time is specified
   if [[ "$snooze_time" =~ ^[0-9]+$ && $snooze_time -gt 0 ]]; then
     echo "Alarm snoozed for $snooze_time minutes."
+    # Sleep for the specified number of minutes for snooze
+    sleep "$((snooze_time * 60))"
+  fi
+}
+
+# Main script
+
+# Parse command-line argumetns 
+if [[ $# -lt 1 ]]; then
+  echo "Usage: $0 <alarm_time> [snooze_time]"
+  exit 1
+fi
+
+alarm_time="$1"
+snooze_time="$2"
     
       
-  
 
+# Choose the beeping sound or audio file
+# Uncomment one of the options below or add your own
+
+# Option 1: Play the default system beep sound
+# play_beep
+
+# Option 2: Play a specific audio file
+# Specify the path to the audio file
+# play_audio_file "/path/to/audio/file.mp3"
+
+# Set the alarm
+set_alarm "$alarm_time" "$snooze_time"
+
+# Trigger the alarm action
+# Uncomment one of the options below or add your own
+
+# Option 1: Play the default system beep sound
+# play_beep
+
+# Option 2: Play a specific audio file
+# Specify the path to the audio file
+# play_audio_file "/path/to/audio/file.mp3"
 
