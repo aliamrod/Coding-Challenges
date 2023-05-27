@@ -1,3 +1,3 @@
-# HackerRank-Challenges
+# Coding-Challenges
 
-The following repository contains efficient HackerRank solutions for [HackerRank](https://www.hackerrank.com) challenges. 
+The following repository contains proposed solutions to an array of coding challenges for multiple languages. 
