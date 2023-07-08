@@ -9,12 +9,9 @@ Output Format.
 Print out the moves you will take to rescue the princess in one go. The moves must be separated by '\n', a newline. The valid moves are LEFT or RIGHT or UP or DOWN. 
 
 Sample Input. 
-'''
+```
 3
-
 ---
-
 -m-
-
 p--
-'''
+```
