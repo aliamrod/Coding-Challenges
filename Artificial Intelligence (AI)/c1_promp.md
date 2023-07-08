@@ -15,3 +15,43 @@ Sample Input.
 -m-
 p--
 ```
+Sample Output
+```
+DOWN
+LEFT
+```
+
+Task.
+Complete the function displayPathtoPrincess which takes in two parameters - the integer N and the character array grid. The grid will be formatted exactly as you see it in the input, so for the sample input the princess is at grid[2][0]. The function shall output moves (LEFT, RIGHT, UP or DOWN) on consecutive lines to rescue/reach the princess. The goal is to reach the princess in as few moves as possible.
+
+The above sample input is just to help you understand the format. The princess ('p') can be in any one of the four corners.
+
+Scoring 
+Your score is calculated as follows : (NxN - number of moves made to rescue the princess)/10, where N is the size of the grid (3x3 in the sample testcase).
+
+```
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void displayPathtoPrincess(int n, vector <string> grid){
+    //your logic here
+}
+
+int main(void) {
+
+    int m;
+    vector <string> grid;
+
+    cin >> m;
+
+    for(int i=0; i<m; i++) {
+        string s; cin >> s;
+        grid.push_back(s);
+    }
+
+    displayPathtoPrincess(m,grid);
+
+    return 0;
+}
+```
