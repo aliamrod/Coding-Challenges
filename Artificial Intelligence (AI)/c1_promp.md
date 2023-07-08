@@ -11,7 +11,10 @@ Print out the moves you will take to rescue the princess in one go. The moves mu
 Sample Input. 
 '''
 3
+
 ---
+
 -m-
+
 p--
 '''
