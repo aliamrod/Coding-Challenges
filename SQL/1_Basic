@@ -12,3 +12,7 @@ The CountryCode for America is USA. The CITY table is described as follows:
 | POPULATION  | NUMBER       |
 +-------------+--------------+
 */
+
+SELECT *
+FROM CITY
+WHERE POPULATION > 100000 AND COUNTRYCODE = "USA"; 
