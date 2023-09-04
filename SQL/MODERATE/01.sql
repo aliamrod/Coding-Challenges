@@ -46,3 +46,9 @@ Sample Output
 
 */ 
 
+SELECT N,
+      IF (P IS NULL, 'Root', 
+            IF((SELECT COUNT(*) FROM BST WHERE B.N=P) >0, 'Inner', 'Leaf')
+            )
+FROM BST B
+ORDER BY N;
