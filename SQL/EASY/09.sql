@@ -15,3 +15,8 @@ in any order, but exclude duplicates from the answer. The STATION table is descr
 
 where LAT_N is the northern latitude and LONG_W is the western longitude. 
 */
+
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE MOD(ID,2) = 0
+ORDER BY CITY ASC; 
