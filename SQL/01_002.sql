@@ -23,3 +23,4 @@ city that meets the specified criteria. The FROM clause specifies the city table
 data from. The WHERE clause includes the conditions that we want to apply to filter the results: we want
 only those cities where the COUNTRYCODE is 'USA' and the POPULATION is greater than 120,000.
 */
+
