@@ -21,3 +21,5 @@ city names: 'New York' and 'Bengalaru'. The query returns 1, because
 
 total number of records - number of unique city names = 3 - 2 = 1. 
 */
+
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION; 
