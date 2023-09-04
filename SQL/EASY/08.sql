@@ -12,3 +12,6 @@ Query a list of CITY and STATE from the STATION table. The STATION table is desc
 | LONG_W      | NUMBER       |
 +-------------+--------------+
 */
+
+SELECT CITY, STATE
+FROM STATION; 
