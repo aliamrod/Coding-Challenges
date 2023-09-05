@@ -1,0 +1,2 @@
+Game Rules:
+Both players are given the same string, S. 
