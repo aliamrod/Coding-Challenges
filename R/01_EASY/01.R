@@ -82,5 +82,3 @@ for(i in 1:length(nums2))
                 }
     # write.table(isFunny, sep = " ", append=T, row.names = F, col.names = F,quote = FALSE,)                   
      write.table(funornot, sep = " ", append=T, row.names = F, col.names = F,quote = FALSE,)
-
-        
