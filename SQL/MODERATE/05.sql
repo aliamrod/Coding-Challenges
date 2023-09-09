@@ -1,4 +1,4 @@
-/*
+ /*
 Samantha interviews many candidates from different colleges using coding challenges and contests. Write a query to print the
 contest_id, hacker_id, name, and the sums of total_submissions, total_accepted_submissions, total_views, and 
 total_unique_views for each contest sorted by contest_id. Exclude the contest from the result if all four sums are zero.
@@ -64,11 +64,11 @@ total_views, and total_unique_views for each contest sorted by contest_id. Thus,
 
 SELECT con.contest_id, con.hacker_id, con.name, 
 SUM(sg.total_submissions), SUM(sg.total_accepted_submissions),
-  SUM(vg.total_views), SUM(vg.total_unique_views)
-  FROM CONTESTS as con /* aliasing Contests table as 'con'*/
-  ON con.contest_id = col_contest_id 
- FROM Contests AS con 
+SUM(vg.total_views), SUM(vg.total_unique_views)
+FROM CONTESTS as con
 JOIN Colleges AS col
+ON con.contest_id = col.contest_id
+JOIN Challenges AS cha
 ON con.contest_id = col.contest_id
 JOIN Challenges AS cha 
 ON cha.college_id = col.college_id
@@ -84,11 +84,6 @@ HAVING SUM(sg.total_submissions)+
        SUM(sg.total_accepted_submissions)+
        SUM(vg.total_views)+
        SUM(vg.total_unique_views) > 0
-
-
-
-
-  ORDER BY con.contest_id; 
-
+ORDER BY con.contest_id;
 
 
