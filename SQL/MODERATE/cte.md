@@ -51,3 +51,24 @@ JOIN highest h
     AND sales.date = h.date
 )
 ```
+
+-----------------------
+In the next example, we generate a report within the highest daily revenue by branch.
+```SQL
+WITH daily_revenue AS(
+  SELECT
+    branch,
+    date,
+    SUM(unit_price * quantity) AS daily_revenue
+FROM sales
+WHERE EXTRACT(YEAR FROM date) = 2021
+GROUP BY 1, 2
+)
+
+SELECT
+  branch,
+  MAX(daily_revenue) max_daily_revenue
+FROM daily_revenue
+GROUP BY 1
+ORDER BY 2 DESC
+```
