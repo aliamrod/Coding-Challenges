@@ -21,7 +21,7 @@ The name of this CTE is ```my_cte```, and the CTE query is ```SELECT a,b,c FROM 
 
 B. Examples
 In this section, I have presented examples of SQL queries using common table expressions. All examples are based on a database for a chain of cellular phone stores. The table ```sales```, shown below, has one record per product sold:
-|branch | date | seller | item| quantity | unit_price
+|branch | date | seller | item| quantity | unit_price|
 | :---         |     :---     |:--- | :---| :---| :---|
 | Paris-1   | 2021-12-07     | Charles    | Headphone A2 | 1 | 80|
 | London-1     | 2021-12-06       | John      | Cell Phone X2 | 2 | 120|
@@ -74,4 +74,12 @@ ORDER BY 2 DESC
 ```
 
 
-In this query, a CTE called ```daily_revenue``` has columns branch, date, and ```daily_revenue``` for each date in 2021.
+In this query, a CTE called ```daily_revenue``` has columns branch, date, and ```daily_revenue``` for each date in 2021. Then in the outer query, we obtain the highest amount of revenue for each branch in 2021. The report is ordered by ```max_daily_revenue``` in descending order. 
+
+Below are the results of this query.
+
+|branch | max_daily_revenue | 
+| :---         |     :---     |
+| London-1 | 575  | 
+| London-2     | 240  |
+| Paris-1 | 135 |
