@@ -72,3 +72,6 @@ FROM daily_revenue
 GROUP BY 1
 ORDER BY 2 DESC
 ```
+
+
+In this query, a CTE called ```daily_revenue``` has columns branch, date, and ```daily_revenue``` for each date in 2021.
