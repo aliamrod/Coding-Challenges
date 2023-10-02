@@ -18,3 +18,15 @@ FROM my_cte
 WHERE ...
 ```
 The name of this CTE is ```my_cte```, and the CTE query is ```SELECT a,b,c FROM T1```. The CTE starts with the ```WITH``` keyword, after which you specify the name of your CTE, then the content of the query in parentheses. The main query comes after the closing parenthesis and refers to the CTE. Here, the main query (also known as the outer query) is ```SELECT a,c FROM my_cte WHERE...```
+
+B. Examples
+In this section, I have presented examples of SQL queries using common table expressions. All examples are based on a database for a chain of cellular phone stores. The table ```sales```, shown below, has one record per product sold:
+|branch | date | seller | item| quantity | unit_price
+| :---         |     :---     |          :--- | :---| :---| :---|
+| Paris-1   | 2021-12-07     | Charles    | Headphone A2 | 1 | 80|
+| London-1     | 2021-12-06       | John      | Cell Phone X2 | 2 | 120|
+| London-2 | 2021-12-07 | Mary | Headphones A1 | 1 | 60|
+| Paris-1 | 2021-12-07 | Charles | Battery Charger | 1 | 50 |
+| London-2 | 2021-12-07 | Mary | Cell Phone B2 | 2 | 90|
+| London-1 | 2021-12-07 | John | Headphones A0 | 5 | 75|
+| London-1 | 2021-12-07 | Sean | Cell Phone X1 | 2 | 100 |
