@@ -22,7 +22,7 @@ The name of this CTE is ```my_cte```, and the CTE query is ```SELECT a,b,c FROM 
 B. Examples
 In this section, I have presented examples of SQL queries using common table expressions. All examples are based on a database for a chain of cellular phone stores. The table ```sales```, shown below, has one record per product sold:
 |branch | date | seller | item| quantity | unit_price
-| :---         |     :---     |          :--- | :---| :---| :---|
+| :---         |     :---     |:--- | :---| :---| :---|
 | Paris-1   | 2021-12-07     | Charles    | Headphone A2 | 1 | 80|
 | London-1     | 2021-12-06       | John      | Cell Phone X2 | 2 | 120|
 | London-2 | 2021-12-07 | Mary | Headphones A1 | 1 | 60|
@@ -30,3 +30,24 @@ In this section, I have presented examples of SQL queries using common table exp
 | London-2 | 2021-12-07 | Mary | Cell Phone B2 | 2 | 90|
 | London-1 | 2021-12-07 | John | Headphones A0 | 5 | 75|
 | London-1 | 2021-12-07 | Sean | Cell Phone X1 | 2 | 100 |
+
+In the first example, we obtain a  report from the ```sales``` table but add an extra column with the price of the most expensive item sold in the same branch that day. To obtain the price of the most expensive item, we use a common table expression like this:
+
+```SQL
+WITH highest AS(
+  SELECT
+  branch,
+  date,
+  MAX(unit_price) as highest_price
+FROM sales
+GROUP BY branch, date
+)
+SELECT
+  sales.*,
+  h.highest_price
+FROM sales
+JOIN highest h
+  on sales.branch = h.branch
+    AND sales.date = h.date
+)
+```
