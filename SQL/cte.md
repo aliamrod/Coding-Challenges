@@ -126,3 +126,11 @@ The result of the query is below:
 |month | london_revenue | london1_revenue | london2_revenue| 
 | :---         |     :---     | :---| :---|
 | 12  | 1055 | 815 | 240| 
+
+
+In the following example, we obtain a report to inform each branch of the date on which the largest ticket (i.e., amount of the item-quantity combination) was sold and the amount of this ticket. To do this, we need to create a CTE that ranks the tickets (the column ```position``` is the ranking) for each branch by the ticket amount. 
+
+```SQL
+
+
+```
