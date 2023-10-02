@@ -119,3 +119,10 @@ SELECT
 FROM london1_monthly_revenue l1, london2_monthly_revenue l2
 WHERE l1.month = l2.month
 ```
+
+In the query above, we defined two CTEs, ```london1_monthly_revenue``` and ```london2_monthly_revenue```, to obtain the monthly revenue in 2021 for each branch in London. Finally, we join both CTEs using the month column and calculate the total revenue for London by adding up the revenues of the two branches. 
+
+The result of the query is below:
+|month | london_revenue | london1_revenue | london2_revenue| 
+| :---         |     :---     | :---| :---|
+| 12  | 1055 | 815 | 240| 
