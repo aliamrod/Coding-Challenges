@@ -139,14 +139,24 @@ WITH tickets AS (
   ROW_NUMBER() OVER (
   PARTITION BY branch
   ORDER by unit_price * quantity DESC
-  ) AS position
+)  AS position
   FROM sales
   ORDER BY 3 DESC
+)
+SELECT
+  branch,
+  date,
+  ticket_amount
+FROM tickets
+WHERE position = 1
+
 ```
 
 As reiteration, this SQL code defines a Common Table Expression (CTE) named "tickets" that processes data from a table called "sales". The code calculates and assigns row numbers based on certain criteria for each row in the "sales" table. 
 
 **`WITH tickets AS ( ` --> This line starts the definition of a CTE named "tickets". CTEs are temporary result sets that you can reference within the SQL query. 
+
 **`SELECT DISTINCT` --> This clause selects unique rows from the "sales" table based on the combination of values in the specified columns. 
+
 ** `ORDER BY 3 DESC` --> This orders the result set of the CTE by the 3rd column, which is the "ticket_amount", in descending order. 
 
