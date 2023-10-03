@@ -131,6 +131,22 @@ The result of the query is below:
 In the following example, we obtain a report to inform each branch of the date on which the largest ticket (i.e., amount of the item-quantity combination) was sold and the amount of this ticket. To do this, we need to create a CTE that ranks the tickets (the column ```position``` is the ranking) for each branch by the ticket amount. 
 
 ```SQL
-
-
+WITH tickets AS (
+  SELECT distinct
+  branch,
+  date,
+  unit_price * quantity AS ticket_amount,
+  ROW_NUMBER() OVER (
+  PARTITION BY branch
+  ORDER by unit_price * quantity DESC
+  ) AS position
+  FROM sales
+  ORDER BY 3 DESC
 ```
+
+As reiteration, this SQL code defines a Common Table Expression (CTE) named "tickets" that processes data from a table called "sales". The code calculates and assigns row numbers based on certain criteria for each row in the "sales" table. 
+
+**`WITH tickets AS ( ` --> This line starts the definition of a CTE named "tickets". CTEs are temporary result sets that you can reference within the SQL query. 
+**`SELECT DISTINCT` --> This clause selects unique rows from the "sales" table based on the combination of values in the specified columns. 
+** `ORDER BY 3 DESC` --> This orders the result set of the CTE by the 3rd column, which is the "ticket_amount", in descending order. 
+
