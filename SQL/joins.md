@@ -20,7 +20,7 @@ Notice that the "CustomerID" column in the "Orders" table refers to the "Custome
 ```SQL
 SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
 FROM Orders
-INNER JOIN Customers on Orders.CustomerID = Customers.CustomerID
+INNER JOIN Customers on Orders.CustomerID = Customers.CustomerID;
 ```
 
 This consequently produces:
@@ -43,7 +43,17 @@ This consequently produces:
 
 
 ------------------------------------
+Challenges:
 
+**Using `Orders` and `Customers` table above:
+1. Retrieve a list of all orders and their associated customer information (OrderID, OrderDate, TotalAmount, CustomerName). Include orders where the customer information is missing (i.e., there's no matching customer record). If the customer information is missing, display NULL values for CustomerName.
+
+```sql
+'RIGHT JOIN'
+SELECT Orders.OrderID, Orders.OrderDate, Orders.TotalAmount, Customers.CustomerName
+FROM Orders
+RIGHT JOIN Customers ON Orders.CustomerID = Customers.CustomerID; 
+```
 
 
 
