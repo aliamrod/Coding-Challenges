@@ -67,10 +67,55 @@ SELECT Customers.CustomerName, Orders.OrderID, Orders.OrderDate, Orders.TotalAmo
 FROM Orders
 LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID; 
 ```
-4. Recursive CTE. Suppose you have a table named `Employees` with columns `EmployeeID`, `EmployeeName`, and `ManagerID`. Write an SQL query to find all employees who report directly or indirectly to a specific manager (identified by `ManagerID`). 
-5. Pivot Table. Given a table named `Sales` with columns `SaleID`, `ProductID`, and `SaleAmount`, write an SQL queury to pivot the data and display the total sales amount for each product as columns. 
-6. Running Total. You have a table named `Transactions` with columns `TransactionID`, `TransactionDate`, and `Amount`. Write an SQL query to calculate the running total of the `Amount` column over time, orderd by `TransactionDate`. 
-7. Hierarchical Data. Imagine you have a table called `Categories` with columns `CategoryID`, `CategoryName`, and `ParentCategoryID`, where `ParentCategoryID` references the `CategoryID` of the parent category. Write a query to retrieve all categories and their subcategories, displaying the hierarchy.
+4. Recursive CTE. Suppose you have a table named `Employees` with columns `EmployeeID`, `EmployeeName`, and `ManagerID`. Write an SQL query to find all employees who report directly or indirectly to a specific manager (identified by `ManagerID`).
+
+```sql
+WITH RecursiveEmployeeCTE AS (
+  SELECT EmployeeID, EmployeeName, ManagerID
+  FROM Employees
+  WHERE EmployeeID = @TargetManagerID -- Replace with the desired ManagerID
+  
+  UNION ALL
+  
+  SELECT E.EmployeeID, E.EmployeeName, E.ManagerID
+  FROM Employees AS E
+  INNER JOIN RecursiveEmployeeCTE AS R ON E.ManagerID = R.EmployeeID
+)
+SELECT EmployeeID, EmployeeName
+FROM RecursiveEmployeeCTE;
+``` 
+6. Pivot Table. Given a table named `Sales` with columns `SaleID`, `ProductID`, and `SaleAmount`, write an SQL queury to pivot the data and display the total sales amount for each product as columns.
+
+```sql
+SELECT
+  ProductID,
+  SUM(CASE WHEN Month = 'January' THEN SaleAmount ELSE 0 END) AS January,
+  SUM(CASE WHEN Month = 'February' THEN SaleAmount ELSE 0 END) AS February,
+  SUM(CASE WHEN Month = 'March' THEN SaleAmount ELSE 0 END) AS March,
+  -- Repeat for other months
+FROM (
+  SELECT
+    ProductID,
+    MONTH(SaleDate) AS Month,
+    SaleAmount
+  FROM Sales
+) AS PivotData
+GROUP BY ProductID;
+
+```
+   
+7. Running Total. You have a table named `Transactions` with columns `TransactionID`, `TransactionDate`, and `Amount`. Write an SQL query to calculate the running total of the `Amount` column over time, orderd by `TransactionDate`.
+
+```sql
+SELECT
+  TransactionID,
+  TransactionDate,
+  Amount,
+  SUM(Amount) OVER (ORDER BY TransactionDate) AS RunningTotal
+FROM Transactions
+ORDER BY TransactionDate; 
+```   
+8. Hierarchical Data. Imagine you have a table called `Categories` with columns `CategoryID`, `CategoryName`, and `ParentCategoryID`, where `ParentCategoryID` references the `CategoryID` of the parent category. Write a query to retrieve all categories and their subcategories, displaying the hierarchy.
 
 ```sql
 WITH RecursiveCategoryCTE AS (
@@ -88,8 +133,8 @@ WITH RecursiveCategoryCTE AS (
 SELECT CategoryID, CategoryName, Level
 FROM RecursiveCategoryCTE
 ORDER BY Level, CategoryID; 
-¸¸¸¸¸¸¸¸¸
 ```
+
 9. Window Functions. Given a table `Sales` with columns `SaleID`, `ProductID`, `SaleDate`, and `SaleAmount`, write an SQL query to find the top-selling product for each month along with the total sales amount for that product in that month.
 ```sql
 WITH MonthlyRanking AS (
