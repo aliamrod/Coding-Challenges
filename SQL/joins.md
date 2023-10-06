@@ -37,6 +37,8 @@ This consequently produces:
 * LEFT (OUTER) JOIN: Returns all records from the left table, adn the matched records from the right table.
 * RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table.
 * FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table.
-*
-* ![image](https://github.com/aliamrod/Coding-Challenges/assets/62684338/2c8b0bdd-a000-486b-b680-4a8b8f02245e)
+
+<img width="510" alt="Screen Shot 2023-10-06 at 12 21 53 PM" src="https://github.com/aliamrod/Coding-Challenges/assets/62684338/45090586-8d41-4134-9f95-fe270c1c72e0">
+
+
 
