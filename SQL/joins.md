@@ -67,4 +67,22 @@ SELECT Customers.CustomerName, Orders.OrderID, Orders.OrderDate, Orders.TotalAmo
 FROM Orders
 LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID; 
 ```
+4. Recursive CTE. Suppose you have a table named `Employees` with columns `EmployeeID`, `EmployeeName`, and `ManagerID`. Write an SQL query to find all employees who report directly or indirectly to a specific manager (identified by `ManagerID`). 
+5. Pivot Table. Given a table named `Sales` with columns `SaleID`, `ProductID`, and `SaleAmount`, write an SQL queury to pivot the data and display the total sales amount for each product as columns. 
+6. Running Total. You have a table named `Transactions` with columns `TransactionID`, `TransactionDate`, and `Amount`. Write an SQL query to calculate the running total of the `Amount` column over time, orderd by `TransactionDate`. 
+7. Hierarchical Data. Imagine you have a table called `Categories` with columns `CategoryID`, `CategoryName`, and `ParentCategoryID`, where `ParentCategoryID` references the `CategoryID` of the parent category. Write a query to retrieve all categories and their subcategories, displaying the hierarchy. 
+8. Window Functions. Given a table `Sales` with columns `SaleID`, `ProductID`, `SaleDate`, and `SaleAmount`, write an SQL query to find the top-selling product for each month along with the total sales amount for that product in that month. 
+9. Geospatial Query. Suppose you have a table named `Locations` with columns `LocationID`, `Latitude`, and `Longitude`. Write an SQL query to find the nearest location to a given set of coordinates (latitude and longitude) using the Haversine formula. 
+10. Analytic Functions. In a table called `Employees` with columns `EmployeeID`, `Salary`, and `DepartmentID`, write an SQL query to rank employees within each department based on their salary, using dense ranking.
+
+```sql
+SELECT
+  EmployeeID,
+  Salary,
+  DepartmentID,
+  DENSE_RANK() OVER (PARTITION BY DepartmentID ORDER BY Salary DESC) AS Salary_Rank
+FROM Employees;
+```
+
+11. *
 
