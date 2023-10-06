@@ -34,7 +34,7 @@ This consequently produces:
 **Different Types of SQL JOINs**
 
 * (INNER) JOIN: Returns records that have matching values in both tables.
-* LEFT (OUTER) JOIN: Returns all records from the left table, adn the matched records from the right table.
+* LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table.
 * RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table.
 * FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table.
 
@@ -46,14 +46,25 @@ This consequently produces:
 Challenges:
 
 **Using `Orders` and `Customers` table above:
-1. Retrieve a list of all orders and their associated customer information (OrderID, OrderDate, TotalAmount, CustomerName). Include orders where the customer information is missing (i.e., there's no matching customer record). If the customer information is missing, display NULL values for CustomerName.
+1. RIGHT JOIN. Retrieve a list of all orders and their associated customer information (OrderID, OrderDate, TotalAmount, CustomerName). Include orders where the customer information is missing (i.e., there's no matching customer record). If the customer information is missing, display NULL values for CustomerName.
 
 ```sql
-'RIGHT JOIN'
 SELECT Orders.OrderID, Orders.OrderDate, Orders.TotalAmount, Customers.CustomerName
 FROM Orders
 RIGHT JOIN Customers ON Orders.CustomerID = Customers.CustomerID; 
 ```
+2. FULL JOIN (OUTER). Retrieve a list of all customers and their order information (CustomerName, OrderID, OrderDate, TotalAmount), including customers who have not placed any orders and orders where the customer information is missing. If either the customer or order information is missing, display NULL values in the respective columns.
 
+```sql
+SELECT Customers.CustomerName, Orders.OrderID, Orders.OrderDate, Orders.TotalAmount
+FROM Customers
+FULL JOIN Orders on Customers.CustomerID = Orders.CustomerID; 
+```
+3. LEFT JOIN (OUTER). Retrieve a list of all customers and their order information (CustomerName, OrderID, OrderDate, TotalAmount). Include customers who have not placed any orders. If a customer has not placed an order, display NULL values for OrderID, OrderDate, and TotalAmount.
 
+```sql
+SELECT Customers.CustomerName, Orders.OrderID, Orders.OrderDate, Orders.TotalAmount
+FROM Orders
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID; 
+```
 
