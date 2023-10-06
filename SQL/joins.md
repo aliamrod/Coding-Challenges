@@ -70,24 +70,43 @@ LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
 4. Recursive CTE. Suppose you have a table named `Employees` with columns `EmployeeID`, `EmployeeName`, and `ManagerID`. Write an SQL query to find all employees who report directly or indirectly to a specific manager (identified by `ManagerID`). 
 5. Pivot Table. Given a table named `Sales` with columns `SaleID`, `ProductID`, and `SaleAmount`, write an SQL queury to pivot the data and display the total sales amount for each product as columns. 
 6. Running Total. You have a table named `Transactions` with columns `TransactionID`, `TransactionDate`, and `Amount`. Write an SQL query to calculate the running total of the `Amount` column over time, orderd by `TransactionDate`. 
-7. Hierarchical Data. Imagine you have a table called `Categories` with columns `CategoryID`, `CategoryName`, and `ParentCategoryID`, where `ParentCategoryID` references the `CategoryID` of the parent category. Write a query to retrieve all categories and their subcategories, displaying the hierarchy. 
-8. Window Functions. Given a table `Sales` with columns `SaleID`, `ProductID`, `SaleDate`, and `SaleAmount`, write an SQL query to find the top-selling product for each month along with the total sales amount for that product in that month.
+7. Hierarchical Data. Imagine you have a table called `Categories` with columns `CategoryID`, `CategoryName`, and `ParentCategoryID`, where `ParentCategoryID` references the `CategoryID` of the parent category. Write a query to retrieve all categories and their subcategories, displaying the hierarchy.
 
+```sql
+WITH RecursiveCategoryCTE AS (
+  SELECT CategoryID, CategoryName, ParentCategoryID, 0 AS Level
+  FROM Categories
+  WHERE ParentCategoryID IS NULL
+
+  UNION ALL
+
+  SELECT C.CategoryID, C.CategoryName, C.ParentCategoryID, R.Level
+  FROM Categories AS C
+  INNER JOIN RecursiveCategoryCTE AS R ON C.ParentCategoryID = R.CategoryID
+)
+
+SELECT CategoryID, CategoryName, Level
+FROM RecursiveCategoryCTE
+ORDER BY Level, CategoryID; 
+¸¸¸¸¸¸¸¸¸
+```
+9. Window Functions. Given a table `Sales` with columns `SaleID`, `ProductID`, `SaleDate`, and `SaleAmount`, write an SQL query to find the top-selling product for each month along with the total sales amount for that product in that month.
 ```sql
 WITH MonthlyRanking AS (
   SELECT
     ProductID,
     DATE_TRUNC('month', SaleDate) AS Month,
     SUM(SaleAmount) AS TotalSales,
-    ROW_NUMBER() OVER (PARTITION BY DATE_TRUNC('month', SaleDate) ORDER BY SUM(SaleAmount) DESC) AS Rank
+    ROW_NUMBER() OVER (PARTITION BY DATE_TRUNC('month', SaleDate) ORDER BY SUM(TotalSames) DESC) AS Rank
   FROM Sales
   GROUP BY ProductID, DATE_TRUNC('month', SaleDate)
 )
+
 SELECT ProductID, Month, TotalSales
 FROM MonthlyRanking
 WHERE Rank = 1; 
-
 ```
+
 10. Geospatial Query. Suppose you have a table named `Locations` with columns `LocationID`, `Latitude`, and `Longitude`. Write an SQL query to find the nearest location to a given set of coordinates (latitude and longitude) using the Haversine formula.
 
 ```sql
@@ -115,5 +134,14 @@ SELECT
 FROM Employees;
 ```
 
-11. *
+11. In a table called `Orders`, there are columns `OrderID` and `CustomerID`. Write an SQL query to find all customer IDs that have placed duplicate orders (orders with the same `CustomerID` and `OrderDate`).
+```sql
+SELECT CustomerID
+FROM (
+  SELECT CustomerID, OrderDate, COUNT(*) AS OrderCount
+  FROM Orders
+  GROUP BY CustomerID, OrderDate
+) AS Subquery
+WHERE OrderCount > 1; 
+```
 
