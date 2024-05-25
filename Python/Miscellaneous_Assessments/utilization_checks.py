@@ -37,34 +37,32 @@
 # 0 <= averageUtil[i] <= 100
 
 
-import math
-from typing import List
 
-class Solution: 
-  def final_instances(self, instanes, average_util: List[int]) -> int:
-      """
+
+
+class Solution:
+  def final_instances(self, instances, averageUtil: List[int]) -> int):
+     """
     :type instances: int
     :type averageUtil: List[int]
     :rtype: int
     """
-    i = 0
-    sleep = 0
-
-    while i < len(average_util):
+      i = 0
+      sleep = 0
+      while i < len(averageUtil):
         if sleep != 0:
           sleep -= 1
           i += 1
           continue
-        if (average_util[i] < 25): 
+        if (averageUtil[i] < 25):
           instances = math.ceil(instances / 2)
           sleep = 10
-        elif (average_util[i] > 60 and instances < 10**8):
+        elif (averageUtil[i] > 60 and < 10**8):
           instances *= 2
           sleep = 10
         i += 1
       return instances
 
-# Example Usage
 instances = [2, 2]
 average_utils = [[25, 23, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 76, 80],
                  [25, 23, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 76, 80]]
@@ -72,5 +70,5 @@ output = [2, 2]
 
 s = Solution()
 for i in range(len(instances)):
-  assert s.final_instances(instances[i], average_utils[i]) == output[i]
-
+  assert s.final_instances(instances[i], averageUtil[i]) == output[i]
+      
