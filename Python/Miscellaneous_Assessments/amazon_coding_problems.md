@@ -50,18 +50,6 @@ If secret code list is empty then it is assumed that the customer is a winner.
 ```python
 class Solution:
   def win_prize(self, codeList, shoppingCart):
-    for code in codeList:
-      print("shoppingCart: {}".format(shoppingCart))
-      next_shoppingCart = self.match_in_cart(code, shoppingCart)
-      if len(next_shoppingCart) == len(shoppingCart)): return 0
-    return 1
-
-
-
-
-
-class Solution:
-  def win_prize(self, codeList, shoppingCart):
       for code in codeList:
         print("shoppingCart {}".format(shoppingCart))
         next_shoppingCart = self.match_in_cart(code, shoppingCart)
