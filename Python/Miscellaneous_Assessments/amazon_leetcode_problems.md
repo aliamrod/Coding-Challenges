@@ -1,7 +1,9 @@
 # Amazon Online Assessment Questions
 
 1. [Find the missing number in the array](#find-the-missing-number-in-the-array)
-2. [Determine if the sum of two integers is equal to the given value](determine-if-equal-sum)
+2. [Determine if the sum of two integers is equal to the given value](Determine-if-the-sum-of-two-integers-is-equal-to-the-given-value)
+
+)
 3. [Merge two sorted linked lists](merge-two-sorted-linked-lists)
 4. [Level Order Traversal of Binary Tree](level-order-traversal-of-binary-tree)
 5. *
