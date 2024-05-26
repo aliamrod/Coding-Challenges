@@ -39,7 +39,4 @@ class Solution:
     if complement in seen_numbers:
       return True
     seen_numbers.add(num)
-
-
 ```
-
