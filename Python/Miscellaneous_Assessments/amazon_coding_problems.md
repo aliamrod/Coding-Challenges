@@ -164,8 +164,7 @@ class Solution:
     result = 0
     for idx, song in enumerate(time):
       if (60 - song % 60) % 60 in songs:
-        result += songs[(60 - song % 60) %60]
+        result +=  songs[60 - song % 60) % 60]
       songs[song % 60] = song.get(song % 60, 0) + 1
-  return result
+    return result
 ```
-
