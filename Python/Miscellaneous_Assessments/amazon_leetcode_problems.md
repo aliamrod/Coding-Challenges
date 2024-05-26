@@ -1,10 +1,8 @@
 # Amazon Online Assessment Questions
 
 1. [Find the missing number in the array](#find-the-missing-number-in-the-array)
-2. [Determine if the sum of two integers is equal to the given value](Determine-if-the-sum-of-two-integers-is-equal-to-the-given-value)
-
-)
-3. [Merge two sorted linked lists](merge-two-sorted-linked-lists)
+2. [Determine if the sum of two integers is equal to the given value](#Determine-if-the-sum-of-two-integers-is-equal-to-the-given-value)
+3. [Merge two sorted linked lists](#Merge-two-sorted-linked-lists)
 4. [Level Order Traversal of Binary Tree](level-order-traversal-of-binary-tree)
 5. *
 6. *
@@ -111,7 +109,7 @@ merged_head = merge_sorted(head1, head2)
 print_list(merged_head)
 ```
 
-## Level Order Traversal of Binary Tree
+## Level order traversal of binary treee
 Given the root of a binary tree, display the node values at each level. Node values for all levels should be displayed on separate lines. Let's take a look at the below binary tree. 
 
 ![Screenshot 2024-05-26 at 6 21 18 PM](https://github.com/aliamrod/Coding-Challenges/assets/62684338/70ef0f56-b072-4d4e-9854-aeacbf341893)
