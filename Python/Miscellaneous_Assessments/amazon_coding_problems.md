@@ -221,18 +221,14 @@ class Solution:
 
 ## Substrings of Size K with K-1 Distinct Chars
 
-Your manager has created a word game for you and your teammates to play. The word game begins with your manager writing a string, and a number K on the board.
-
-You and your teammates must find a substring of size K such that there is exactly one character that is repeated once. In other words, there should be K - 1 distinct characters in the substring. Write an algorithm to help your teammates find the correct answer. If no such substring can be found, return an empty list;
-
-If multiple such substrings exist, return all of them, without repetitions. The order in which the substrings are returned does not matter.
+Your manager has created a word game for you and your teammates to play. The word game begins with your manager writing a string, and a number K on the board. You and your teammates must find a substring of size K such that there
+is exactly one character that is repeated once. In other words, there should be K - 1 distinct characters in the substring. Write an algorithm to help your teammates find the correct answer. If no such substring can be found,
+return an empty list; If multiple such substrings exist, return all of them, without repetitions. The order in which the substrings are returned does not matter.
 
 **Input**
 
 It has two arguments:
-
 `inputString`: representing the string written by the manager.
-
 `num`: an integer representing the number K, written by the manager on the board.
 
 **Output**
@@ -247,3 +243,26 @@ The input string consists of only lowercase alphabetic characters.
 
 **_Solution_**
 
+```python
+
+
+
+```
+
+
+
+```python
+class Solution:
+    def substr_of_size_k(self, input_string, num):
+        left, right = 0, num
+        if num >= len(input_string):
+            return []
+
+        res = []
+        while right <= len(input_string):
+            if (len(set(input_string[left:right])) == num - 1):
+                res.append(input_string[left:right])
+            left += 1
+            right += 1
+        return res
+```
