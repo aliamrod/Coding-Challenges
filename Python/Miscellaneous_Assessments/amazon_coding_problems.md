@@ -70,3 +70,47 @@ class Solution:
         return shoppingCart
 
 ```
+
+```python
+class Solution:
+  def win_prize(self, codeList, shoppingCart):
+    # If the codeList is empty, the customer is automatically a winner
+    if not codeList:
+      return 1
+    # Pointer for the current position in the shoppingCart
+    cart_index = 0
+    cart_length = len(shoppingCart)
+
+    # Iterate through each group in the codeList
+    for code in codeList:
+      # Find the starting position of the current code group in the shoppingCart
+      found = False
+      while cart_index <= cart_length - len(code):
+        match = True
+        for j in range(len(code)):
+          if code[j] != 'anything' and code[j] != shoppingCart[cart_index + j]:
+            match = False
+            break
+          if match:
+            found = True
+            cart_index += len(code) # Move the cart_index past the match group
+            break
+          cart_index += 1 # Move to the next starting position
+        if not found:
+          return 0
+      return 1
+# Example usage:
+solution = Solution()
+codeList = [["apple", "apple"], ["banana", "anything", "banana"]]
+shoppingCart = ["orange", "apple", "apple", "banana", "orange", "banana"]
+print(solution.win_prize(codeList, shoppingCart))  # Output: 1
+
+shoppingCart = ["apple", "apple", "orange", "orange", "banana", "apple", "banana", "banana"]
+print(solution.win_prize(codeList, shoppingCart))  # Output: 1
+
+shoppingCart = ["banana", "orange", "banana", "apple", "apple"]
+print(solution.win_prize(codeList, shoppingCart))  # Output: 0
+```
+
+
+
