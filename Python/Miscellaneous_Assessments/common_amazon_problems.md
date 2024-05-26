@@ -87,7 +87,12 @@ head2 = ListNode(1, ListNode(3, ListNode(4)))
 
 merged_head = merge_sorted(head1, head2)
 print_list(merged_head)
+```
 
+## Level Order Traversal of Binary Tree
+Given the root of a binary tree, display the node values at each level. Node values for all levels should be displayed on separate lines. Let's take a look at the below binary tree. 
+
+![Screenshot 2024-05-26 at 6 21 18 PM](https://github.com/aliamrod/Coding-Challenges/assets/62684338/70ef0f56-b072-4d4e-9854-aeacbf341893)
 
 
 
