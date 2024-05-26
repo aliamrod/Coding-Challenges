@@ -11,6 +11,7 @@
 - [Shopping Patterns](#shopping-patterns)
 - [Amazon Music Pairs](#amazon-music-pairs)
 - [Beta Testing](#beta-testing)
+  
 
 ## Amazon Fresh Promotion
 
@@ -40,3 +41,44 @@ The input to the function/method consists of two arguments:
 Return an integer 1 if the customer is a winner else return 0.
 
 **Note**
+'anything' in the codeList represents that any fruit can be ordered in place of 'anything' in the group. 'anything' has to be something, it cannot be "nothing."
+
+'anything' must represent one and only one fruit.
+If secret code list is empty then it is assumed that the customer is a winner.
+
+
+```python
+class Solution:
+  def win_prize(self, codeList, shoppingCart):
+    for code in codeList:
+      print("shoppingCart: {}".format(shoppingCart))
+      next_shoppingCart = self.match_in_cart(code, shoppingCart)
+      if len(next_shoppingCart) == len(shoppingCart)): return 0
+    return 1
+
+
+
+
+
+class Solution:
+  def win_prize(self, codeList, shoppingCart):
+      for code in codeList:
+        print("shoppingCart {}".format(shoppingCart))
+        next_shoppingCart = self.match_in_cart(code, shoppingCart)
+        if len(next_shoppingCart) == len(shoppingCart)): return 0
+      return 1
+
+  def match_in_cart(self, code, shoppingCart):
+    for i in range(len(shoppingCart) - len(code) + 1):
+      found_match = True
+      for j in range(len(code)):
+        if code[j] != 'anything' and code[j] != shoppingCart[i + j]:
+          found_match = False
+          break
+        if found_match:
+          print("found match: {}".format(code))
+          return shoppingCart[i + len(code):]
+        print("did not find a match for {}".format(code))
+        return shoppingCart
+
+```
