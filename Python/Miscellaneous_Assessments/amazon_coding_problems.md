@@ -1,4 +1,4 @@
-# Amazon Online Assessment Questions (2020 October)
+# Amazon Online Assessment Questions
 
 - [Amazon Fresh Promotion](#amazon-fresh-promotion)
 - [Five Star Sellers](#five-star-sellers)
