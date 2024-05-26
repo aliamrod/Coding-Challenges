@@ -31,13 +31,15 @@ Given an array of integers and a value, determine if there are any two integers 
 Return true if the sum exists and return false if it does not. Consider this array and the target sums.
 
 ```python
-def find_sum_of_two(A, val):
-  found_values = set()
-  for a in A:
-    if val - a in found_values:
+class Solution:
+  def find_sum_of_two(self, arr, target):
+    seen_numbers = set()
+  for num in arr:
+    complement = target - num
+    if complement in seen_numbers:
       return True
+    seen_numbers.add(num)
 
-    found_values.add(a)
-    
-  return False
+
 ```
+
