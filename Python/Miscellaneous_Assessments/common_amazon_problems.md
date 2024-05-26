@@ -42,5 +42,53 @@ class Solution:
     seen_numbers.add(num)
 ```
 ## Merge two sorted linked lists
-Given two sorted linked lists, merge them so that the resulting linked list is also sorted. Consider two sorted linked lists an dthe merged list below them as an example.
+Given two sorted linked lists, merge them so that the resulting linked list is also sorted. Consider two sorted linked lists an the merged list below them as an example.
 ![Screenshot 2024-05-26 at 5 42 47 PM](https://github.com/aliamrod/Coding-Challenges/assets/62684338/81fb3895-97c2-4f58-b7b4-61083a566602)
+
+```python
+class Solution:
+  def merge_sorted(self, head1, head2):
+  # Initialize a dummy node to help with the merge process
+
+  dummy = ListNode()
+  current = dummy
+
+
+  # Traverse both lists and merge them
+  while head1 and head2:
+    if head1.val < head2.val:
+      current.next = head1
+      head1 = head1.next
+    else:
+      current.next = head2
+      head2 = head2.next
+    current = current.next
+  # Attach the remaining nodes of the non-empty list
+  if head1:
+    current.next = head1
+  elif head2:
+    current.next = head2
+
+  # Return the merged list starting from the next node of the dummy
+  return dummy.next
+
+  # Helper function to print linked list
+  def print_list(node):
+    while node:
+      print(node.val, end="->")
+      node = node.next
+    print("None")
+# Example usage:
+# List 1: 1 -> 2 -> 4
+# List 2: 1 -> 3 -> 4
+
+head1 = ListNode(1, ListNode(2, ListNode(4)))
+head2 = ListNode(1, ListNode(3, ListNode(4)))
+
+merged_head = merge_sorted(head1, head2)
+print_list(merged_head)
+
+
+
+
+```
