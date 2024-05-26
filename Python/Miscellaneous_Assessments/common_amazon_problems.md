@@ -3,6 +3,26 @@
 1. [Find the missing number in the array](#find-missing-number)
 2. [Determine if the sum of two integers is equal to the given value](determine-if-equal-sum)
 3. [Merge two sorted linked lists](merge-two-sorted-linked-lists)
+4. [Level Order Traversal of Binary Tree](level-order-traversal-of-binary-tree)
+5. *
+6. *
+7. *
+8. *
+9. *
+10. 8
+11. *
+12. *
+13. *
+14. &
+15. *
+16. s
+17. s
+18. s
+19. s
+20. s
+21. s
+
+
 
 ## Find the missing number in the array
 You are given an array of positive numbers from 1 to n, such that all numbers from 1 to n are present except one number x. You have to find x. The input array is not sorted. Look at the below array and give it a try before checking the solution.
@@ -95,5 +115,33 @@ Given the root of a binary tree, display the node values at each level. Node val
 ![Screenshot 2024-05-26 at 6 21 18 PM](https://github.com/aliamrod/Coding-Challenges/assets/62684338/70ef0f56-b072-4d4e-9854-aeacbf341893)
 
 
+```python
+class Solution:
+  def level_order_traversal(self, root):
+    if root == None:
+      return
+    result = ""
+    queues = [dequeue(), dequeue()]
 
+    current_queue = queues[0]
+    next_queues = queues[1]
+
+    current_queue.append(root)
+    level_number = 0
+
+    while current_queue:
+      temp = current_queue.popleft()
+      result += str(temp.data) + " "
+
+      if temp.left != None
+        next_queue.append(temp.left)
+      if temp.right != None
+        next_queue.append(temp.right)
+
+      if not current_queue:
+        level_number += 1
+        current_queue = queues[level_number % 2]
+        next_queue = queues[(level_number + 1) % 2]
+      return result
 ```
+
