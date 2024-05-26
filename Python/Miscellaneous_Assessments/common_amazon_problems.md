@@ -2,6 +2,7 @@
 
 1. [Find the missing number in the array](#find-missing-number)
 2. [Determine if the sum of two integers is equal to the given value](determine-if-equal-sum)
+3. [Merge two sorted linked lists](merge-two-sorted-linked-lists)
 
 ## Find the missing number in the array
 You are given an array of positive numbers from 1 to n, such that all numbers from 1 to n are present except one number x. You have to find x. The input array is not sorted. Look at the below array and give it a try before checking the solution.
@@ -40,3 +41,6 @@ class Solution:
       return True
     seen_numbers.add(num)
 ```
+## Merge two sorted linked lists
+Given two sorted linked lists, merge them so that the resulting linked list is also sorted. Consider two sorted linked lists an dthe merged list below them as an example.
+![Screenshot 2024-05-26 at 5 42 47 PM](https://github.com/aliamrod/Coding-Challenges/assets/62684338/81fb3895-97c2-4f58-b7b4-61083a566602)
