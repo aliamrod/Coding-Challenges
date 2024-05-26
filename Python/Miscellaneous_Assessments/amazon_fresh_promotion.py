@@ -15,40 +15,32 @@
 # Write an algorithm to output 1 if the customer is a winner else output 0.
 
 
-class Solution:
-  def win_prize(self, code_list, shopping_cart):
+# Input 
+# The input to the function/method consists of two arguments:
+# 'codeList', a list of strings representing the order and grouping of specific fruits that must be purchased in order to win the prize for the day. 
+# 'shoppingCart', a list of strings representing the order in which a customer purchases fruit.
+
+# Output 
+# Return an integer 1 if the customer is a winner else return 0. 
+
+class Solution: 
+  def win_prize(self, codeList, shoppingCart):
+    for code in codeList:
+      print("shoppingCart:{}".format(shoppingCart))
+      next_shoppingCart = self.match_in_cart(code, shoppingCart)
+      if (len(next_shoppingCart) == len(shoppingCart)): return 0
+    return 1
 
 
-
-
-
-  def match_in_cart(self, code, shopping_cart):
-    for i in range(len(shopping_cart) - len(code) + 1):
+  def match_in_cart(self, code, shoppingCart):
+    for i in range(len(shoppingCart) - len(code) + 1):
       found_match = True
       for j in range(len(code)):
-        if code[j] != 'anything' and code[j] != shopping_cart[i + j]:
+        if code[j] != 'anything' and code[j] != shoppingCart[i + j]:
           found_match = False
           break
         if found_match:
           print("found match: {}".format(code))
-          return shopping_cart[i + len(code):]
-        print("did not find a match for {}".format(code))
-
-        return shopping_cart
-
-
-
-
-
-
-
-  ///
-  class Solution:
-    def win_prize(self, code_list, shopping_cart):
-        for code in code_list:
-            print("shopping_cart: {}".format(shopping_cart))
-            next_shopping_cart = self.match_in_cart(code, shopping_cart)
-
-            if (len(next_shopping_cart) == len(shopping_cart)): return 0
-            shopping_cart = next_shopping_cart
-        return 1
+          return shoppingCart[i + len(code):]
+        print("did not find a match for {}.format(code))
+        return shoppingCart
