@@ -193,36 +193,28 @@ Output: "a"
 
 ```python
 class Solution:
-
-```
-
-
-
-
-
-
-class Solution:
-    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
-        def tokenize(paragraph):
-            words = []
+  def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+    def tokenize(paragraph):
+      words = []
+      word = ""
+      for i in range(len(paragraph)):
+        if paragraph[i] in "!?,.;":
+          if word:
+            words.append(word)
             word = ""
-            for i in range(len(paragraph)):
-                if paragraph[i] in " !?',;.":
-                    if word:
-                        words.append(word)
-                        word = ""
-                else:
-                    word += paragraph[i]
-            if word:
-                words.append(word)
-            return words
+        else:
+          word += paragraph[i]
+      if word:
+        words.append(word)
+      return words
 
-        words = tokenize(paragraph.lower())
-        word_map = {}
-        common_word = ("", 0)
-        for word in words:
-            if word in banned: continue
-            word_map[word] = word_map.get(word, 0) + 1
-            if (word_map[word] > common_word[1]):
-                common_word = (word, word_map[word])
-        return common_word[0]
+    words = tokenize(paragraph.lower())
+    word_map = {}
+    common_word = ("", 0)
+    for word in words:
+      if word in banned: continue
+      word_map[word] = word_map.get(word, 0) + 1
+      if (word_map[word] > common_word[1]):
+        common_word = (word, word_map[word])
+    return common_word[0]
+```
