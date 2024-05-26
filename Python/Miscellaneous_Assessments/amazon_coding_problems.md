@@ -221,15 +221,9 @@ class Solution:
 
 ## Substrings of Size K with K-1 Distinct Chars
 
-As part of Day 1 challenge, your manager has created a word game for you and your teammates to play.
+Your manager has created a word game for you and your teammates to play. The word game begins with your manager writing a string, and a number K on the board.
 
-The word game begins with your manager writing a string, and a number K on the board.
-
-You and your teammates must find a substring of size K such that there is exactly one character that is repeated once.
-
-In other words, there should be K - 1 distinct characters in the substring.
-
-Write an algorithm to help your teammates find the correct answer. If no such substring can be found, return an empty list;
+You and your teammates must find a substring of size K such that there is exactly one character that is repeated once. In other words, there should be K - 1 distinct characters in the substring. Write an algorithm to help your teammates find the correct answer. If no such substring can be found, return an empty list;
 
 If multiple such substrings exist, return all of them, without repetitions. The order in which the substrings are returned does not matter.
 
