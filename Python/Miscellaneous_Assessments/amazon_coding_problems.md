@@ -146,29 +146,26 @@ by always update the one that increase the average rating most.
 For the metric we can use the difference: `r[0]+1/r[1]+1 - r[0]/r[1]`, always apply the five start rating to the
 produce that would have the highest increase.
 
+## Amazon Music Pairs
+
+You are given a list of songs where the ith song has a duration of time[i] seconds.
+
+Return the number of pairs of songs for which their total duration in seconds is divisible by 60. Formally, we want the number of indices i, j such that i < j with (time[i] + time[j]) % 60 == 0.
+
+ 
+We can use a map to store the count of the songs for each length % 60. Basically a pair of <length % 60, count>. We only care about the remainder of the length after mod 60. While we iterate through the songs, we:
+
+Check if there is such key in the map, the sum of that key and current song length % 60 is divisible by 60, if yes, increment the result by the value of that key (count of the qualified songs).
+
 ```python
-import heapq
-from typing import List
-
-
 class Solution:
-    def min_five_state_reviews(self, product_ratings: List[List[int]],
-                               ratings_threshold: int) -> int:
-        n = len(product_ratings)
-        pq = [(-self.diff(rating), rating) for rating in product_ratings]
-        heapq.heapify(pq)
-        ave_rating = sum([r[0] / r[1] for r in product_ratings]) / n
-        count = 0
-
-        while ave_rating < ratings_threshold / 100:
-            diff, rating = heapq.heappop(pq)
-            new_rating = [rating[0] + 1, rating[1] + 1]
-            heapq.heappush(pq, (-self.diff(new_rating), new_rating))
-            ave_rating = ave_rating - diff / n
-            count += 1
-        return count
-
-    def diff(self, rating):
-        return (rating[0] + 1) / (rating[1] + 1) - (rating[0] / rating[1])
+  def numPairsDivisibleBy60(self, time: List[int]) -> int:
+    songs = {}
+    result = 0
+    for idx, song in enumerate(time):
+      if (60 - song % 60) % 60 in songs:
+        result += songs[(60 - song % 60) %60]
+      songs[song % 60] = song.get(song % 60, 0) + 1
+  return result
 ```
 
