@@ -228,7 +228,9 @@ return an empty list; If multiple such substrings exist, return all of them, wit
 **Input**
 
 It has two arguments:
+
 `inputString`: representing the string written by the manager.
+
 `num`: an integer representing the number K, written by the manager on the board.
 
 **Output**
@@ -241,28 +243,24 @@ or an empty list if no such substring exists in inputString. The order in which 
 The input integer can only be greater than or equal to 0 and less than or equal to 26 (0 <= num <= 26).
 The input string consists of only lowercase alphabetic characters.
 
-**_Solution_**
-
-```python
-
-
-
-```
-
-
+**_Solution01_**
 
 ```python
 class Solution:
-    def substr_of_size_k(self, input_string, num):
-        left, right = 0, num
-        if num >= len(input_string):
-            return []
+  def substring_of_size_k(self, inputString, num):
+      left, right = 0, num
+      if num >= len(inputString):
+        return []
 
-        res = []
-        while right <= len(input_string):
-            if (len(set(input_string[left:right])) == num - 1):
-                res.append(input_string[left:right])
-            left += 1
-            right += 1
-        return res
+      result = []
+      while right <= len(inputString):
+        if (len(set(inputString[left:right])) == num - 1):
+          result.append(inputString[left:right])
+        left += 1
+        right += 1
+      return result
+
+# Example Usage
+result = Solution()
+print(result.substring_of_size_k("aababcabc", 3))
 ```
