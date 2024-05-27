@@ -46,15 +46,15 @@ Return an integer 1 if the customer is a winner else return 0.
 'anything' must represent one and only one fruit.
 If secret code list is empty then it is assumed that the customer is a winner.
 
-
+SOLUTION 01
 ```python
 class Solution:
   def win_prize(self, codeList, shoppingCart):
-      for code in codeList:
-        print("shoppingCart {}".format(shoppingCart))
-        next_shoppingCart = self.match_in_cart(code, shoppingCart)
-        if len(next_shoppingCart) == len(shoppingCart)): return 0
-      return 1
+    for code in codeList:
+      print("shoppingCart {}".format(shoppingCart))
+      next_shoppingCart = self.match_in_cart(code, shoppingCart) ***
+      if len(next_shoppingCart) == len(shoppingCart): return 0
+    return 1
 
   def match_in_cart(self, code, shoppingCart):
     for i in range(len(shoppingCart) - len(code) + 1):
@@ -66,8 +66,10 @@ class Solution:
         if found_match:
           print("found match: {}".format(code))
           return shoppingCart[i + len(code):]
-        print("did not find a match for {}".format(code))
+        print("did not find match for {}".format(code))
         return shoppingCart
+```
+
 
 ```
 
@@ -145,6 +147,33 @@ by always update the one that increase the average rating most.
 
 For the metric we can use the difference: `r[0]+1/r[1]+1 - r[0]/r[1]`, always apply the five start rating to the
 produce that would have the highest increase.
+
+```python
+import heapq
+from typing import List
+
+class Solution:
+    def min_five_state_reviews(self, product_ratings: List[List[int]],
+                               ratings_threshold: int) -> int:
+        n = len(product_ratings)
+        pq = [(-self.diff(rating), rating) for rating in product_ratings]
+        heapq.heapify(pq)
+        ave_rating = sum([r[0] / r[1] for r in product_ratings]) / n
+        count = 0
+
+        while ave_rating < ratings_threshold / 100:
+            diff, rating = heapq.heappop(pq)
+            new_rating = [rating[0] + 1, rating[1] + 1]
+            heapq.heappush(pq, (-self.diff(new_rating), new_rating))
+            ave_rating = ave_rating - diff / n
+            count += 1
+        return count
+
+    def diff(self, rating):
+        return (rating[0] + 1) / (rating[1] + 1) - (rating[0] / rating[1])
+```
+
+
 
 ## Amazon Music Pairs
 
