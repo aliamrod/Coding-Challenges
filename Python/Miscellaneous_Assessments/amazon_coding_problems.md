@@ -69,10 +69,7 @@ class Solution:
         print("did not find match for {}".format(code))
         return shoppingCart
 ```
-
-
-```
-
+SOLUTION 02
 ```python
 class Solution:
   def win_prize(self, codeList, shoppingCart):
