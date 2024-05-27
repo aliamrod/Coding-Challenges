@@ -217,22 +217,22 @@ Example 2:
 Input: paragraph = "a.", banned = []
 Output: "a"
 
+SOLUTION 01
 ```python
 class Solution:
   def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
-    def tokenize(paragraph):
+    def tokenize(paragraph) # tokenization - the `split` method breaks the normalized string into indiviudal words based on spaces.
       words = []
       word = ""
       for i in range(len(paragraph)):
-        if paragraph[i] in "!?,.;":
+        if paragraph[i] in "!?,.:;":
           if word:
             words.append(word)
-            word = ""
-        else:
-          word += paragraph[i]
-      if word:
-        words.append(word)
-      return words
+          else:
+            word += paragraph[i]
+          if word:
+            words.append(word)
+          return words
 
     words = tokenize(paragraph.lower())
     word_map = {}
@@ -245,6 +245,46 @@ class Solution:
     return common_word[0]
 ```
 
+SOLUTION 02
+```python
+import re
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        # Normalize the paragraph by converting to lowercase and replacing non-alphanumeric characters with spaces
+        normalized_str = re.sub(r'[^\w\s]', ' ', paragraph).lower()
+        
+        # Tokenize the string into words
+        words = normalized_str.split()
+        
+        # Create a set for banned words for O(1) lookups
+        banned_set = set(banned)
+        
+        # Dictionary to count word frequencies
+        word_count = defaultdict(int)
+        
+        # Count frequencies of words that are not banned
+        for word in words:
+            if word not in banned_set:
+                word_count[word] += 1
+        
+        # Find the most frequent non-banned word
+        most_frequent_word = max(word_count, key=word_count.get)
+        
+        return most_frequent_word
+
+# Example usage
+solution = Solution()
+paragraph1 = "Bob hit a ball, the hit BALL flew far after it was hit."
+banned1 = ["hit"]
+print(solution.mostCommonWord(paragraph1, banned1))  # Output: "ball"
+
+paragraph2 = "a."
+banned2 = []
+print(solution.mostCommonWord(paragraph2, banned2))  # Output: "a"
+```
 ## Substrings of Size K with K-1 Distinct Chars
 
 Your manager has created a word game for you and your teammates to play. The word game begins with your manager writing a string, and a number K on the board. You and your teammates must find a substring of size K such that there
