@@ -195,46 +195,33 @@ Search for a given number in a sorted array, with unique elements, that has been
 
 
 
-![image](https://github.com/aliamrod/Coding-Challenges/assets/62684338/66c3a2eb-a4a6-4d1e-b1b9-5e90eca6bee8)
+![Screenshot 2024-05-26 at 5 04 52 PM](https://github.com/aliamrod/Coding-Challenges/assets/62684338/85952bb8-b83c-4964-bd57-8155b1778818)
 
-
-
-
-
-
-
-///
-
-
-def binary_search_rotated(arr, key):
-  start = 0
-  end = len(arr) - 1
-
-  if start > end:
-    return -1
-    
-  while start <= end:
-    mid = start + (end - start) // 2
-
-    if arr[mid] == key:
-      return mid
-
-    if arr[start] <= arr[mid] and key <= arr[mid] and key >= arr[start]:
-      end = mid - 1
-    
-    elif (arr[mid] <= arr[end] and key >= arr[mid] and key <= arr[end]):
-      start = mid + 1
-
-    elif arr[start] <= arr[mid] and arr[mid] <= arr[end] and key > arr[end]:
-      start = mid + 1 
-
-    elif arr[end] <= arr[mid]:
-      start = mid + 1  
-
-    elif arr[start] >= arr[mid]:
-      end = mid - 1
-    
-    else:
-      return -1
-    
-  return -1
+```python
+class Solution:
+    def binary_search_rotated(self, arr, key):
+        left, right = 0, len(arr) - 1
+        
+        while left <= right:
+            mid = (left + right) // 2
+            
+            if arr[mid] == key:
+                return mid
+            
+            # Check if the left half is sorted
+            if arr[left] <= arr[mid]:
+                # If the key lies in the sorted left half
+                if arr[left] <= key < arr[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            else:
+                # If the right half is sorted
+                if arr[mid] < key <= arr[right]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+        
+        # If the key was not found
+        return -1
+```
