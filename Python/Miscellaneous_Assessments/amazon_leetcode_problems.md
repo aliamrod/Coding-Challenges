@@ -5,7 +5,7 @@
 3. [Merge two sorted linked lists](#Merge-two-sorted-linked-lists)
 4. [Level Order Traversal of Binary Tree](#Level-order-traversal-of-binary-tree)
 5. [String segmentation](#String-segmentation)
-6. *
+6. [Search rotated array](#Search-rotated-array)
 7. *
 8. *
 9. *
@@ -188,3 +188,53 @@ class Solution:
 `not second` checks if `second` is an empty string. In the context of string segmentation, if `segment` is empty, it means there are no remaining characters to check, which implies that the initial segment (`first`) successfully splits the string into valid dictionary words. 
 
 An empty `second` would occur if `first` exactly matches the entire remaining part of `s`, meaning the split was successful. 
+
+
+## Search rotated array
+Search for a given number in a sorted array, with unique elements, that has been rotated by some arbitrary number. Return `-1` if the number does not exist. Assume that the array does not contain duplicated. 
+
+
+
+![image](https://github.com/aliamrod/Coding-Challenges/assets/62684338/66c3a2eb-a4a6-4d1e-b1b9-5e90eca6bee8)
+
+
+
+
+
+
+
+///
+
+
+def binary_search_rotated(arr, key):
+  start = 0
+  end = len(arr) - 1
+
+  if start > end:
+    return -1
+    
+  while start <= end:
+    mid = start + (end - start) // 2
+
+    if arr[mid] == key:
+      return mid
+
+    if arr[start] <= arr[mid] and key <= arr[mid] and key >= arr[start]:
+      end = mid - 1
+    
+    elif (arr[mid] <= arr[end] and key >= arr[mid] and key <= arr[end]):
+      start = mid + 1
+
+    elif arr[start] <= arr[mid] and arr[mid] <= arr[end] and key > arr[end]:
+      start = mid + 1 
+
+    elif arr[end] <= arr[mid]:
+      start = mid + 1  
+
+    elif arr[start] >= arr[mid]:
+      end = mid - 1
+    
+    else:
+      return -1
+    
+  return -1
