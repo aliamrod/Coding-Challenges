@@ -145,3 +145,46 @@ class Solution:
       return result
 ```
 
+```python
+class Solution:
+  def level_order_traversal(self, root):
+    # Creating a list to store the elemeents
+    traversal = []
+
+    # Creating a queue
+    queue = dequeue()
+
+    # Initializing queue with the root node of the tree
+    queue.append(root)
+
+    # Iterating over the tree levels until finishes
+    size = len(queue)
+
+    while size:
+      # removing that element from the queue
+      node = queue.popleft()
+
+      # Adding its data to the traversal list
+      traversal.append(node.data)
+
+      # Adding left and right child to the queue if it's there for next level traversal
+      if node.left:
+        queue.append(node.left)
+
+      if node.right:
+      
+  
+```
+
+            
+            #Adding left and right child to the queue if its there 
+            #for next level traversal.
+            if node.left:
+                queue.append(node.left)
+            
+            if node.right:
+                queue.append(node.right)
+            
+            size -= 1
+    
+    return traversal
