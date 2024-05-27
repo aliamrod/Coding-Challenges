@@ -3,8 +3,8 @@
 1. [Find the missing number in the array](#find-the-missing-number-in-the-array)
 2. [Determine if the sum of two integers is equal to the given value](#Determine-if-the-sum-of-two-integers-is-equal-to-the-given-value)
 3. [Merge two sorted linked lists](#Merge-two-sorted-linked-lists)
-4. [Level Order Traversal of Binary Tree](level-order-traversal-of-binary-tree)
-5. *
+4. [Level Order Traversal of Binary Tree](#Level-order-traversal-of-binary-tree)
+5. [String segmentation](#String-segmentation)
 6. *
 7. *
 8. *
@@ -109,7 +109,7 @@ merged_head = merge_sorted(head1, head2)
 print_list(merged_head)
 ```
 
-## Level order traversal of binary treee
+## Level order traversal of binary tree
 Given the root of a binary tree, display the node values at each level. Node values for all levels should be displayed on separate lines. Let's take a look at the below binary tree. 
 
 ![Screenshot 2024-05-26 at 6 21 18 PM](https://github.com/aliamrod/Coding-Challenges/assets/62684338/70ef0f56-b072-4d4e-9854-aeacbf341893)
@@ -169,4 +169,22 @@ class Solution:
         size -= 1
     return traversal
 ```
+## String segmentation
+You are given a dictionary of words and a large input string. You have to find out whether the input string can be completely semgneted into the words of a given dictionary. The following two examples elaborate on the problem further. 
 
+![Screenshot 2024-05-26 at 8 35 35 PM](https://github.com/aliamrod/Coding-Challenges/assets/62684338/5f2f2e66-bba1-4d11-b86a-c569436e8af4)
+
+```python
+class Solution:
+  def can_segment_string(self, s, dictionary):
+    for i in range(len(s) + 1):
+      first = s[0:i]
+      if first in dictionary:
+        second = s[i:]
+        if not second or second in dictionary or can_segment_string(second, dictionary):
+          return True
+    return False
+```
+`not second` checks if `second` is an empty string. In the context of string segmentation, if `segment` is empty, it means there are no remaining characters to check, which implies that the initial segment (`first`) successfully splits the string into valid dictionary words. 
+
+An empty `second` would occur if `first` exactly matches the entire remaining part of `s`, meaning the split was successful. 
