@@ -8,7 +8,7 @@
 - [Turnstile](#turnstile)
 - [Substrings of Size K with K-1 Distinct Chars](#substrings-of-size-k-with-k-1-distinct-chars)
 - [Most Common Word](#most-common-word)
-- [Shopping Patterns](#shopping-patterns)
+- [Shopping Patterns](#Shopping-patterns)
 - [Amazon Music Pairs](#amazon-music-pairs)
 - [Beta Testing](#beta-testing)
   
@@ -329,4 +329,74 @@ class Solution:
 # Example Usage
 result = Solution()
 print(result.substring_of_size_k("aababcabc", 3))
+```
+
+
+
+## Shopping patterns 
+Amazon is trying to understand customer shopping patterns and offer items that are regularly bought together to new customers. Each item that has been bought together can be represented as an undirected graph where edges join often bundled products. A group of n products is uniquely numbered from 1 of product_nodes. A trio is defined as a group of three related products that all connected by an edge. Trios are scored by counting the number of related products outside of the trio, this is referred as a product sum.
+
+Given product relation data, determine the minimum product sum for all trios of related products in the group. If no such trio exists, return -1.
+
+
+<img width="421" alt="image" src="https://github.com/aliamrod/Coding-Challenges/assets/62684338/79c3929d-8a7f-4f19-8368-b3c18aff4108">
+
+**TABLE**
+A graph of n = 6 products where the only trio of related products is (2, 4, 5).
+
+The product scores based on the graph above are:
+**TABLE**
+
+
+```python
+from collections import defaultdict
+
+
+class Graph:
+    def __init__(self, num_nodes, num_edges):
+        self.nodes = list(range(1, num_nodes))
+        self.num_edges = num_edges
+        self.edges = defaultdict(set)
+        self.degrees = defaultdict(int)
+
+    def add_edge(self, n1, n2):
+        self.edges[n1].add(n2)
+        self.edges[n2].add(n1)
+        self.degrees[n1] += 1
+        self.degrees[n2] += 1
+
+    def get_degree(self, n):
+        return self.degrees[n]
+
+    def edge_exist(self, n1, n2):
+        return n2 in self.edges[n1]
+
+
+class Solution:
+    def get_min_score(self, products_nodes, products_edges, products_from,
+                      products_to):
+        g = Graph(products_nodes, products_edges)
+
+        for i in range(len(products_from)):
+            g.add_edge(products_from[i], products_to[i])
+
+        min_score = float('inf')
+        visited_trios = set()
+        for start_node, end_nodes in g.edges.items():
+            for end_node in end_nodes:
+                # For each edge, find a third node check if trio
+                for node in g.nodes:
+                    if node == end_node or node == start_node or tuple(
+                            sorted([start_node, end_node, node
+                                    ])) in visited_trios:
+                        continue
+                    if g.edge_exist(start_node, node) and g.edge_exist(
+                            end_node, node):
+                        # Got a trio
+                        min_score = min(
+                            g.get_degree(start_node) + g.get_degree(end_node) +
+                            g.get_degree(node) - 6, min_score)
+                        visited_trios.add(
+                            tuple(sorted([start_node, end_node, node])))
+        return min_score if min_score != float('inf') else -1
 ```
