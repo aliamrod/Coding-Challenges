@@ -7,11 +7,7 @@ class, and we override [1] the method compareTo() of Comparable interface.
 
 
 ```java
-test
-
-```
-
-// A Java program to demonstrate use of Comparable
+//A Java program to demonstrate use of Comparable
 import java.io.*;
 import java.util.*;
 
@@ -31,15 +27,14 @@ class Movie implements Comparable<Movie>
 	// Constructor
 	public Movie(String nm, double rt, int yr)
 	{
-		this.name = nm;
+		this.name = nm
 		this.rating = rt;
 		this.year = yr;
 	}
-
 	// Getter methods for accessing private data
-	public double getRating() { return rating; }
-	public String getName() { return name; }
-	public int getYear()	 { return year; }
+	public double getRating() {return rating; }
+	public String getName() {return name; }
+	public int getYear() {return year; }
 }
 
 // Driver class
@@ -53,7 +48,7 @@ class Main
 		list.add(new Movie("Empire Strikes Back", 8.8, 1980));
 		list.add(new Movie("Return of the Jedi", 8.4, 1983));
 
-		Collections.sort(list);
+		Collections.sort(list)
 
 		System.out.println("Movies after sorting : ");
 		for (Movie movie: list)
@@ -64,10 +59,9 @@ class Main
 		}
 	}
 }
+```
 
-
-
-[1] **Overriding = feature that allows a subclass or child class to provide a specific implementation of a method that is already proided by one of its super-classes or parent classes. When a method in a subclass has the same name, the same parameters or signature, and the same return type (or sub-type) as a method in its super-class, then the method in the subclass is said to _override_ the method in the super-class. 
+[1] **Overriding** = feature that allows a subclass or child class to provide a specific implementation of a method that is already proided by one of its super-classes or parent classes. When a method in a subclass has the same name, the same parameters or signature, and the same return type (or sub-type) as a method in its super-class, then the method in the subclass is said to _override_ the method in the super-class. 
 
 ![image](https://github.com/aliamrod/Coding-Challenges/assets/62684338/dbd7774c-1d4f-4297-ba7b-6114a9fefb51)
 
