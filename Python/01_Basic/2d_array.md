@@ -37,30 +37,24 @@ import re
 import sys
 
 # Complete the 'hourglassSum' function below.
-R = 5
-C = 5
-
-# Function to find the maximum sum of hourglass
+```python
 def hourglassSum(arr):
-  # Considering the matrix also contains
-  max_sum = -63 # constraints of -9<=arr[i][j]<=9 with 7 values in hourglass. So smallest possible value is (7)*(-9)=-63
+  max_sum = -63
+  r = 5
+  c = 5
 
-  if (R < 3 or C < 3):
-    print("Not possible")
-    exit()
+  for i in range(4):
+    for j in range(4):
+      top = sum(arr[i][j:j+3])
+      middle = arr[i+1][j+1]
+      bottom = sum(arr[i+2][j:j+3])
 
-  for i in range(0, R - 2):
-    for j in range(0, C - 2):
-      SUM = (arr[i][j] + arr[i][j+1] + arr[i][j+2]) + (arr[i+1][j+1]) + (arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2])
+      hourglass_sum = top + middle + bottom
+      if hourglass_sum > max_sum:
+        max_sum = hourglass_sum
 
-      if (SUM > max_sum):
-        max_sum = SUM
-      else:
-        continue
-    return max_sum
+  return max_sum
 
-result = MaxSum(arr)
-print(f"Maximum sum of hourglass = {result}")
 ```
 
 JAVA SOLUTION 01: 
