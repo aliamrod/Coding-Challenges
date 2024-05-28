@@ -43,7 +43,7 @@ C = 5
 # Function to find the maximum sum of hourglass
 def hourglassSum(arr):
   # Considering the matrix also contains
-  max_sum = -63 // constraints of -9<=arr[i][j]<=9 with 7 values in hourglass. So smallest possible value is (7)*(-9)=-63
+  max_sum = -63 # constraints of -9<=arr[i][j]<=9 with 7 values in hourglass. So smallest possible value is (7)*(-9)=-63
 
   if (R < 3 or C < 3):
     print("Not possible")
