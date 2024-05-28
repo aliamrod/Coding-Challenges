@@ -28,9 +28,42 @@ The highest hourglass sum is **28** from the hourglass beginning at row **1**, c
 
 
 
+PYTHON SOLUTION 01: 
+```python
+import math
+import os
+import random
+import re
+import sys
 
+# Complete the 'hourglassSum' function below.
+R = 5
+C = 5
 
-JAVA SOLUTION: 
+# Function to find the maximum sum of hourglass
+def hourglassSum(arr):
+  # Considering the matrix also contains
+  max_sum = -63 // constraints of -9<=arr[i][j]<=9 with 7 values in hourglass. So smallest possible value is (7)*(-9)=-63
+
+  if (R < 3 or C < 3):
+    print("Not possible")
+    exit()
+
+  for i in range(0, R - 2):
+    for j in range(0, C - 2):
+      SUM = (arr[i][j] + arr[i][j+1] + arr[i][j+2]) + (arr[i+1][j+1]) + (arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2])
+
+      if (SUM > max_sum):
+        max_sum = SUM
+      else:
+        continue
+    return max_sum
+
+result = MaxSum(arr)
+print(f"Maximum sum of hourglass = {result}")
+```
+
+JAVA SOLUTION 01: 
 ```java
 import java.security.*;
 import java.text.*;
@@ -49,8 +82,8 @@ public class Solution {
     int max_hourglass_sum = -63; 
 
 
-    for (int i = 0; i<row.length; i++) {
-      for (int j = 0; j<columns.length j++) {
+    for (int i = 0; i< rows - 2; i++) {
+      for (int j = 0; j<columns - 2; j++) {
         int current_hourglass_sum = arr[i][j] + arr[i][j+1] + arr[i][j+2] + arr[i+1][j+1] + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
         max_hourglass_sum = Math.max(max_hourglass_sum, current_hourglass_sum
 
@@ -60,6 +93,4 @@ public class Solution {
 
     return max_hourglass_sum; 
 }
-
-
 ```
