@@ -25,3 +25,41 @@ The highest hourglass sum is **28** from the hourglass beginning at row **1**, c
 
 
 ![image](https://github.com/aliamrod/Coding-Challenges/assets/62684338/17f54829-c0cd-402e-9617-dde87265890a)
+
+
+
+
+
+JAVA SOLUTION: 
+```java
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+  //Complete the hourglassSum function below.
+  static int hourglassSum(int[][] arr) {
+    int rows = arr.length;
+    int columns = arr[0].length;
+
+    //int max_hourglass_sum = Integer.MIN_VALUE;
+    //optimize ^^ line of code by:
+    int max_hourglass_sum = -63; 
+
+
+    for (int i = 0; i<row.length; i++) {
+      for (int j = 0; j<columns.length j++) {
+        int current_hourglass_sum = arr[i][j] + arr[i][j+1] + arr[i][j+2] + arr[i+1][j+1] + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
+        max_hourglass_sum = Math.max(max_hourglass_sum, current_hourglass_sum
+
+      }
+  
+  }
+
+    return max_hourglass_sum; 
+}
+
+
+```
