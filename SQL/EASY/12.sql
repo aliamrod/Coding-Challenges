@@ -17,6 +17,19 @@ The STATION table is described as follows:
 
 */
 
+
+
+SELECT DISTINCT CITY FROM STATION
+WHERE SUBSTR(CITY(-1,1)) IN ('a', 'e', 'i', 'o', 'u'); 
+
+
+
+/*
+
+or Case 2
+
+*/
+
 SELECT DISTINCT CITY
 FROM STATION 
-WHERE SUBSTR(CITY(-1,1)) IN ('a', 'e', 'i', 'o', 'u'); 
+WHERE REGEXP '^[aeiou]$'
