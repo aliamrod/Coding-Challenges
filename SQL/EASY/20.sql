@@ -19,13 +19,16 @@ Occupation has the same [occupation_count], they should be ordered alphabeticall
  
 */
 
-SELECT CONCAT(Name, '(', LEFT(Occupation, 1), ')')
-  FROM OCCUPATIONS
-  ORDER BY Name; 
 
-SELECT
-  CONCAT('There are a total of' , COUNT(Occupation), ' ', LOWER(Occupation), 's.')
-  FROM OCCUPATIONS
-  GROUP BY Occupation
-  ORDER BY COUNT(Occupation), Occupation; 
 
+
+/*RESULT1*/
+SELECT CONCAT(Name, '(', LEFT(Occupation ,1), ')')
+ FROM OCCUPATIONS
+ ORDER BY Name;
+
+/*RESULT2*/
+
+SELECT CONCAT('There is a total of', COUNT(Occupation), ' ' , LOWER(Occupation), 's.')
+FROM OCCUPATIONS
+ORDER BY Name; 
