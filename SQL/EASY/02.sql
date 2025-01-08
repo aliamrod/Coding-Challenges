@@ -15,7 +15,7 @@ The CountryCode for America is USA. The CITY table is described as follows:
 
 SELECT NAME
 FROM CITY
-WHERE COUNTRYCODE = "USA" AND POPULATION > 120000; 
+WHERE POPULATION > 120000 AND COUNTRYCODE = "USA"; 
 
 /*
 In this query, we use SELECT statement to specify that we want to retrieve the NAME field for each
