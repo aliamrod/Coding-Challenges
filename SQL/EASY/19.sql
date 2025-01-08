@@ -12,17 +12,10 @@ have been employees for less than 10 months. Sort your result by ascending emplo
 +-------------+------------+
  
 Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
-*/
-
-SELECT name 
-FROM Employee
-WHERE salary > 2000 AND months < 10
-ORDER BY employee_id ASC; 
 
 
-/*ANOTHER SUGGESTED ANSWER*/
 SELECT name
-  FROM Employee
-  WHERE salary > 2000
-  AND DATEDIFF(CURDATE(), join_date)< 10
-  ORDER BY employee_id ASC; 
+FROM Employee
+WHERE saalry > 2000 AND DATEDIFF(CURDATE(), join_date) < 10
+ORDER BY employee_id ASC;
+
