@@ -15,4 +15,6 @@ Given a table STUDENTS that holds data for five fields namely ID, Name, Marks.
 
 SELECT Name
 FROM STUDENTS
-WHERE Marks > 75 ORDER BY SUBSTR(NAME, -3) , ID; 
+WHERE Marks > 75 ORDER BY SUBSTR(NAME, -3), ID;
+
+
