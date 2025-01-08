@@ -12,17 +12,21 @@ The output column headers should be Doctor, Professor, Singer, and Actor, respec
 +-------------+------------+
 */
 
+
 SELECT
     MAX(CASE WHEN Occupation = 'Doctor' THEN Name END) AS Doctor,
-    MAX(CASE WHEN Occupation = 'Professor' THEN Name END) AS Professor,
+    MAX(CASE WHEN Occupation = 'Professor' THEN Name END) AS Professor, 
     MAX(CASE WHEN Occupation = 'Singer' THEN Name END) AS Singer,
     MAX(CASE WHEN Occupation = 'Actor' THEN Name END) AS Actor
+
 FROM (
-    SELECT Occupation, Name, ROW_NUMBER() OVER (PARTITION BY Occupation ORDER BY Name) AS rn
+    SELECT Occupation, Name, ROW_NUMBER() OVER (PARTITION BY Occupation ORDER BY Name) AS rn /* 'rn' = row number assigned to individual based on theor occupation and alphabetical order of their 'name' */
     FROM OCCUPATIONS
 ) AS pivot
+
 GROUP BY rn
-ORDER BY rn;
+ORDER AS rn; 
+
 
 
 /*
@@ -35,6 +39,9 @@ The outer query uses conditional aggregation to pivot the data. It assigns each 
 The GROUP BY rn ensures that the names are aligned correctly with their occupations. 
 
 Finally, we order the result by the row number (rn) to display the names alphabetically underneath their respective occupations. 
+
+"Pivoting" => displaying the data you already have in a different way. 
+'MAX' => selelcts the lexicographically greatest name (alphabetically last) from those rows where the 'Occupation' is 'Doctor'. 
 
 */
 
