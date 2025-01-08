@@ -18,6 +18,12 @@ The STATION table is described as follows:
 
 */
 
-SELECT DISTINCT CITY
+SELECT DISTINCT
 FROM STATION 
-WHERE LOWER(SUBSTR(CITY, -1, 1)) not in ('a', 'e', 'i', 'o', 'u'); 
+WHERE LOWER(SUBSTR(CITY(-1,1)) NOT IN ('a','e','i','o','u');
+
+
+
+/*
+LOWER(SUBSTR(...) -> case insensitive comparison when determining if last character is/is not a vowel
+*/
