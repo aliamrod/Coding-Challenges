@@ -18,9 +18,10 @@ The STATION table is described as follows:
 
 */
 
-SELECT DISTINCT CITY FROM STATION 
-  WHERE CITY REGEXP '^[aeiouAEIOU]'
-  ORDER BY CITY; 
+SELECT DISTINCT CITY FROM STATION /* 'STATION' table selection */
+      WHERE CITY REGEXP '^[aeiouAEIOU]'
+      ORDER BY CITY; 
+
 
 /*
 This query selects distinct CITY names from the STATION table where the CITY name starts with a vowel (either lowercase or uppercase), and
