@@ -9,10 +9,5 @@ select round(sqrt(
   power(min(x) - max(y), 2) + 
   power(min(z) - max(z), 2)
   
-)
-  
-  
-  
-  
-  , 4) as distance
+), 4) as distance
 from points;
