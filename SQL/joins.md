@@ -21,7 +21,12 @@ Notice that the "CustomerID" column in the "Orders" table refers to the "Custome
 SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
 FROM Orders
 INNER JOIN Customers on Orders.CustomerID = Customers.CustomerID;
+
+/*"select --> from -->  inner join --> ON*/
 ```
+
+
+
 
 This consequently produces:
 
