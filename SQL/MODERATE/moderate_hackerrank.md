@@ -1,5 +1,8 @@
 **MODERATE LEVEL PROBLEMS**
 
+
+**Problem 1** 
+
 Amber's conglomerate corporation just acquired some new companies. Each of the companies follows this hierarchy: 
 
 ![image](https://github.com/user-attachments/assets/6d8d10fb-9d42-41ce-8865-82df9d92289b)
@@ -37,15 +40,6 @@ Note:
 ![image](https://github.com/user-attachments/assets/aa48b164-cf0d-499b-98d3-03d54cf0fd2e)
 
 
-
-
-
-
-
-
-
-
-
 ```SQL
 DELIMITER//
 
@@ -57,24 +51,6 @@ END //
 DELIMITER;
 ```
 
-When writing stored procedures:
-1) Assign a name for the procedure (_procedure_name_).
-2) Specify a comma-separated list of parametes for the procedure, if any.
-3) Write your statements that will be executed by the procedure between the `BEGIN` and `END` block. 
 
-A. Stored Procedure with One Parameter
 
-The following SQL statement creates a stored procedure that selects Customers from a particular City from the "Customers" table:
-
-```SQL
-CREATE PROCEDURE SelectAllCustomers @City nvarchar(30)
-AS
-SELECT * FROM Customers WHERE City = @City
-GO;
-```
-
-Now, to call we would execute for instance:
-
-```SQL
-EXEC SelectAllCustomer @City = 'Paris'; 
-```
+**Problem 2**
