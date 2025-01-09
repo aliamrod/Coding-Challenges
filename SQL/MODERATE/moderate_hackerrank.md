@@ -73,3 +73,28 @@ ORDER BY
 ```
 
 **Problem 2**
+
+P(R) represents a pattern drawn by Julia in R rows. The following pattern represents P(5):
+
+```SQL
+* * * * * 
+* * * * 
+* * * 
+* * 
+*
+```
+
+Write a query to print the pattern P(20). 
+
+```SQL
+WITH RECURSIVE Pattern(row_num, stars) AS(
+ SELECT 20, REPEAT('*', 20) -- Initial row with 20 stars
+ UNION ALL
+ SELECT row_num - 1, REPEAT('*', row_num - 1) -- Decrement row number and update stars
+ FROM Pattern
+ WHERE row_number > 1
+)
+
+SELECT stars
+FROM Pattern;
+```
