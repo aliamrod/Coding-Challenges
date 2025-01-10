@@ -200,3 +200,138 @@ Problem 17.
 Problem 18. 
 Problem 19. 
 Problem 20. 
+
+
+
+
+/////
+
+Basic SELECT Queries. 
+
+1. For each continent show the continent and number of countries with populations at at least 10 million.
+
+![Screenshot 2025-01-10 at 3 32 32 PM](https://github.com/user-attachments/assets/3e1b129a-c393-4d88-96d2-9026a909f48f)
+
+```sql
+SELECT continent, sum(name) AS countries
+
+FROM world
+
+WHERE population >= 10000000
+GROUP BY continent ; 
+
+```
+
+2. List the continents that have a total population of at least 100 million.
+   ```sql
+   SELECT continent
+   FROM world
+
+   HAVING sum(population) > 100000000
+
+   GROUP BY continent; 
+   
+   ```
+
+3. What are DDL and DML languages in SQL?
+DDL = 'data definition language' and DML = 'data manipulation language'.
+
+*DDL:
+Purpose: Used to define and manage the structure of database objects.
+Commands:
+CREATE: Creates a new database, table, index, or other database objects.
+ALTER: Modifies existing database structures like tables or columns.
+DROP: Deletes database objects like tables, indexes, or views.
+TRUNCATE: Removes all data from a table but keeps the structure.
+RENAME: Renames a table, column, or index.
+
+*DML:
+Purpose: Used to manipulate and manage data within database tables.
+Commands:
+SELECT: Retrieves data from one or more tables.
+INSERT: Adds new records to a table.
+UPDATE: Modifies existing records in a table.
+DELETE: Removes records from a table.
+
+
+5. DELETE vs TRUNCATE. 
+`DELETE` can be used to remove either few or all the records from a table. `TRUNCATE` will always remove all the records from the table. Truncate cannot have WHERE condition. Delete is a DML statement hence we will need to commit the transaction in order to save the changes to a database. Whereas truncate is a DDL statement hence no commit is required.
+ 
+Speed: TRUNCATE >>> DELETE. 
+
+DELETE can remove specific rows using a WHERE clause (TRUNCATE cannot). 
+```sql DELETE FROM table_name WHERE column_name = 'value'; ```
+
+TRUNCATE removes all rows from the table, without the ability to filer out with a WHERE clause. 
+```sql TRUNCATE TABLE table_name;```
+
+   
+6. Retrieve only the name and salary columns from the employees table.
+   ```sql
+    select name, salary
+   from employees;
+      ```
+7. List all the people who have worked with 'Art Garfunkel'.
+![Screenshot 2025-01-10 at 4 25 48 PM](https://github.com/user-attachments/assets/02d9ec63-d2ad-4bc7-a590-42b4b0a94839)
+```sql
+SELECT name FROM actor a
+JOIN casting c ON c.actorid = a.id
+JOIN movie m ON c.actorid = m.id
+
+WHERE m.id(
+SELECT name FROM actor a JOIN casting c ON c.actorid = a.d JOIN movie m ON c.actorid = m.id
+WHERE a.name = 'Art Garfunkel'
+)
+AND name! = 'Art Garfunkel' 
+```
+
+6. 
+
+
+
+
+   
+7. Obtain a list, in alphabetical order, of actors who ahve had at least 15 starring roles.
+   ![Screenshot 2025-01-10 at 4 25 48 PM](https://github.com/user-attachments/assets/420a9a35-3161-4a46-a0f1-5859672741c1)
+
+    ```sql
+    SELECT name
+    from actor a
+
+    JOIN casting c ON c.actorid = a.id
+
+    WHERE c.ord = 1
+
+    GROUP BY name
+    HAVING count(name) >= 15;
+    ```
+8. Write a query to fetch unique values from the department column in the employees table.
+9. Fetch all employees who earn more than $50,000.
+10. Write a query to find employees hired after January 1, 2020.
+11. Retrieve the top 5 highest-paid employees.
+12. Find employees whose names start with the letter "A".
+13. Fetch employees who belong to either the "Sales" or "Engineering" department.
+14. Write a query to fetch employees with NULL values in the manager_id column.
+15. Sort the employees by their hire date in descending order.
+16. Write a query to fetch all columns from a table named `employees`.
+
+
+17. HAVING vs. WHERE. HAVING- used to check conditions *after the aggregation takes place. WHERE- used to check conditins *before aggregation takes place. WHERE does not work with aggregate functions. 
+
+    ```sql
+    select City, CNT=Count(1)
+    FROM Address
+    
+    WHERE State = 'MA'
+    GROUP BY City
+    /*gives you table of all cities in MA and number of address in each city*/
+
+    ```
+
+    ```sql
+    SELECT City, CNT = COUNT(1)
+    FROM locations
+    GROUP BY City; 
+    
+
+    ```
