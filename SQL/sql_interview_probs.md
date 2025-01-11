@@ -6,6 +6,8 @@ SQL = abstraction or a language; there is no implementation involved. Language u
 
 Primary key = Three main components: (1) It can't be duplicated, (2) Cannot be NULL/Blank, (3) Each table can only have one key. Therefore, it's a unique, non-nullible identifier for each record in a table (can be one column or multiple). 
 
+Foreign key = helps you connect data across tables, ensuring that records in one table can reference related information in another (i.e. Course, Degree, etc and Primary key - studentID, roll #).
+
 **JOINS**
 Way to 'join' two types of tables using logical commands; function allows us to use set of logic. There are four *main ones-- inner, outer, left and right (but in reality there are 7--> left, inner, right, full outer, cross, self, and natural). 
 
@@ -259,7 +261,8 @@ DELETE: Removes records from a table.
  
 Speed: TRUNCATE >>> DELETE. 
 
-DELETE can remove specific rows using a WHERE clause (TRUNCATE cannot). 
+DELETE can remove specific rows using a WHERE clause (TRUNCATE cannot). TRUNCATE is not reversible + if you want to maintain stucture yet remove elements, this works well. DROP removes the structure itself. 
+
 ```sql DELETE FROM table_name WHERE column_name = 'value'; 
 COMMIT; ```
 
@@ -420,7 +423,9 @@ FROM Orders
 );
 ```
  23. Get all customers whose names start with the letter 'A' and have an email domain of 'gmail.com'.
+```sql
 
+```
  24. Find all employees who work in the IT, HR, or Finance departments.
 
  25. List all customers who have placed more than 5 orders.
@@ -477,3 +482,179 @@ SELECT CustomerID,
      ```
 
 
+
+**Difference between DISTINCT and GROUP BY**
+
+`DISTINCT` = Filters out duplicate rows based on the specified columns, returns unique values directly, and operates on the results before they're returned. 
+
+`GROUP BY` = groups rows that have the same values in specified columns; typically used with aggregate functions (i.e. SUM, COUNT, MAX, etc) to perform calculations for each group. 
+
+1. Retrieve all unique department IDs.
+
+```sql
+SELECT DISTINCT department_ids
+FROM Employees;
+```
+
+or 
+```sql
+SELECT department_ids
+FROM Employees
+GROUP BY department_ids;
+```
+2.  Total salary per department.
+```sql
+SELECT d.department_name, SUM(e.salary) AS totalSalary
+FROM Employees e
+JOIN Departments d ON e.department_id = d.department_id
+GROUP BY department_name;
+```
+
+3. List employees working on distinct projects.
+```sql
+WITH ProjectEmployees AS(
+SELECT DISTINCT e.employee_id, p.project_name
+FROM Employees e
+JOIN Project_Assignments pa ON e.employee_id = pa.employee_id
+JOIN Projects p ON pa.employee_id = p.project_id
+)
+SELECT * FROM ProjectEmplyees;
+```
+
+4. Departments with more than 3 employees.
+```sql
+SELECT d.department_name, COUNT(e.employees) AS employeeCount
+FROM Employees e
+JOIN Departments d ON d.department_id = e.department_id
+GROUP BY department_name
+HAVING COUNT(e.employee_id) > 3;
+```
+
+5. Count of employees earning above and below 50,000 in each department.
+```sql
+SELECT d.department(
+SUM(CASE WHEN e.salary > 50000 THEN 1 ELSE 0) AS above_50k,
+SUM(CASE WHEN e.salary <50000 THEN 1 ELSE 0) AS below_50k
+)
+FROM Employees e JOIN Departments d ON e.department_id = d.department_id
+GROUP BY d.department_name; 
+```
+6. Assume you're given a table Twitter tweet data, write a query to obtain a histogram of tweets posted per user in 2022. Output the tweet count per user as the bucket and the number of Twitter users who fall into that bucket.
+
+In other words, group the users by the number of tweets they posted in 2022 and count the number of users in each group.
+
+
+![Screenshot 2025-01-11 at 5 28 43 AM](https://github.com/user-attachments/assets/27020263-1c3f-4d71-b894-fcb1afd2a52c)
+
+```sql
+SELECT tweet_count AS tweet_bucket,
+COUNT(user_id) as users_num
+
+FROM (
+SELECT user_id, COUNT(*) AS tweet_count
+
+FROM tweets
+WHERE tweet_date >= '2022-01-01 00:00:00' AND tweet_date < '2022-01-01 00:00:00'
+GROUP BY user_id
+) subquery
+
+GROUP BY
+tweet_count
+
+ORDER BY tweet_count ASC; 
+```
+
+6. Given a table of candidates and their skills, you're tasked with finding the candidates best suited for an open Data Science job. You want to find candidates who are proficient in Python, Tableau, and PostgreSQL.
+
+Write a query to list the candidates who possess all of the required skills for the job. Sort the output by candidate ID in ascending order.
+
+![Screenshot 2025-01-11 at 6 33 51 AM](https://github.com/user-attachments/assets/89bfdf02-883b-4312-ac96-53551884d4e5)
+
+```sql
+SELECT candidate_id
+FROM candidates
+
+WHERE skill IN ('Python', 'Tableau', 'PostgreSQL')
+GROUP BY candidate_id
+HAVING COUNT(DISTINCT skill) = 3
+ORDER BY candidate_id ASC;
+```
+
+```sql WHERE skill = 'Python' AND skill = 'Tableau' AND skill = 'PostgreSQL'``` is logically incorrect because a single row in the database cannot simultaneously have all three string values. Instead, you need to use the `IN` operator combined with `GROUP BY` and `HAVING`. 
+```sql
+SELECT p.page_id
+FROM pages p
+
+WHERE page_id NOT IN (
+SELECT pl.page_id FROM page_likes pl
+);
+
+```
+
+or 
+```sql
+SELECT p.page_id
+FROM pages p
+
+WHERE NOT EXISTS(
+SELECT 1
+FROM page_likes pl
+WHERE p.page_id = pl.page_id);
+```
+
+7. Tesla is investigating production bottlenecks and they need your help to extract the relevant data. Write a query to determine which parts have begun the assembly process but are not yet finished.
+
+Assumptions:
+
+parts_assembly table contains all parts currently in production, each at varying stages of the assembly process.
+An unfinished part is one that lacks a finish_date.
+![Screenshot 2025-01-11 at 7 08 58 AM](https://github.com/user-attachments/assets/e2ef23a9-dc0d-4189-8b88-f16c0cd4ba50)
+
+```sql
+SELECT part, assembly_step
+FROM parts_assembly
+WHERE finish_date IS NULL
+ORDER BY parts ASC;
+```
+
+8. Assume you're given the table on user viewership categorised by device type where the three types are laptop, tablet, and phone.
+
+Write a query that calculates the total viewership for laptops and mobile devices where mobile is defined as the sum of tablet and phone viewership. Output the total viewership for laptops as laptop_reviews and the total viewership for mobile devices as mobile_views.
+![Screenshot 2025-01-11 at 7 18 39 AM](https://github.com/user-attachments/assets/9bd71d65-99cd-4eed-b939-1b6b419407c7)
+
+```sql
+SELECT
+
+SUM(CASE WHEN device_type = 'laptop' THEN 1 ELSE 0 END) AS laptop_views,
+SUM(CASE WHEN device_type IN ('tablet', 'phone') THEN 1 ELSE 0 END) AS mobile_views
+
+FROM viewership;
+```
+9. 
+10. d
+11. d
+12. d
+13. d
+14. d
+15. d
+16. d
+17. d
+18. d
+19. d
+20. d
+21. d
+22. d
+23. d
+24. d
+25. d
+26. d
+27. d
+28. d
+29. d
+30. d
+31. d
+32. d
+33. d
+34. d
+35. d
+36. 
