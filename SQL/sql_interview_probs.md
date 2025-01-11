@@ -658,3 +658,18 @@ GROUP BY sender_id
 SORT BY sender_id DESC
 LIMIT 2; 
 ```
+11. Assume you are given the table below on Uber transactions made by users. Write a query to obtain the third transaction of every user. Output the user id, spend and transaction date.
+
+![Screenshot 2025-01-11 at 10 36 45 AM](https://github.com/user-attachments/assets/2490d4c7-fd16-469f-a110-36e82c01e9ed)
+
+
+```sql
+WITH trans_num AS(
+SELECT user_id, spend, transaction_date,
+ROW_NUMBER() OVER( PARTITION BY user_id ORDER BY transaction_date)
+)
+
+SELECT user_id, spend, transaction_date
+FROM trans_num
+WHERE row_num = 3; 
+```
