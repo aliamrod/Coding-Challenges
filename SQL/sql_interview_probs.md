@@ -260,7 +260,8 @@ DELETE: Removes records from a table.
 Speed: TRUNCATE >>> DELETE. 
 
 DELETE can remove specific rows using a WHERE clause (TRUNCATE cannot). 
-```sql DELETE FROM table_name WHERE column_name = 'value'; ```
+```sql DELETE FROM table_name WHERE column_name = 'value'; 
+COMMIT; ```
 
 TRUNCATE removes all rows from the table, without the ability to filer out with a WHERE clause. 
 ```sql TRUNCATE TABLE table_name;```
@@ -272,7 +273,9 @@ TRUNCATE removes all rows from the table, without the ability to filer out with 
    from employees;
       ```
 7. List all the people who have worked with 'Art Garfunkel'.
+
 ![Screenshot 2025-01-10 at 4 25 48 PM](https://github.com/user-attachments/assets/02d9ec63-d2ad-4bc7-a590-42b4b0a94839)
+
 ```sql
 SELECT name FROM actor a
 JOIN casting c ON c.actorid = a.id
@@ -286,12 +289,14 @@ AND name! = 'Art Garfunkel'
 ```
 
 6. 
-
+SQL - basic queries to fetch data
+Python/R - implementation of a basic clustering algorithm (code doesn't need to be executable but it is meant to assess fundamental concepts and coding skills)
 
 
 
    
 7. Obtain a list, in alphabetical order, of actors who ahve had at least 15 starring roles.
+   
    ![Screenshot 2025-01-10 at 4 25 48 PM](https://github.com/user-attachments/assets/420a9a35-3161-4a46-a0f1-5859672741c1)
 
     ```sql
@@ -305,18 +310,69 @@ AND name! = 'Art Garfunkel'
     GROUP BY name
     HAVING count(name) >= 15;
     ```
-8. Write a query to fetch unique values from the department column in the employees table.
-9. Fetch all employees who earn more than $50,000.
-10. Write a query to find employees hired after January 1, 2020.
-11. Retrieve the top 5 highest-paid employees.
-12. Find employees whose names start with the letter "A".
-13. Fetch employees who belong to either the "Sales" or "Engineering" department.
-14. Write a query to fetch employees with NULL values in the manager_id column.
-15. Sort the employees by their hire date in descending order.
-16. Write a query to fetch all columns from a table named `employees`.
+
+8. CASE statements in SQL.
+```sql
+SELECT CASE WHEN gender = 'M' THEN 'Male WHEN gender = 'F' THEN 'Female' ELSE 'Other'
+END AS gender
+
+FROM employee;
+```
+
+9. Write a query to fetch unique values from the department column in the employees table.
 
 
-17. HAVING vs. WHERE. HAVING- used to check conditions *after the aggregation takes place. WHERE- used to check conditins *before aggregation takes place. WHERE does not work with aggregate functions. 
+10. Fetch all employees who earn more than $50,000.
+```sql
+SELECT * 
+FROM employees 
+WHERE salary > 50000;
+```
+
+11.  Write a query to find employees hired after January 1, 2020.
+```sql
+SELECT *
+FROM employees
+WHERE hire_date > '2020-01-01';
+```
+12. Retrieve the top 5 highest-paid employees.
+```sql
+SELECT *
+FROM employees
+ORDER BY salary DESC
+LIMIT 5;
+```
+13. Find employees whose names start with the letter "A".
+```sql
+SELECT *
+FROM employees
+WHERE name LIKE "A%";
+```
+14. Fetch employees who belong to either the "Sales" or "Engineering" department.
+```sql
+SELECT *
+FROM employees
+WHERE department IN ('Sales', 'Engineering');
+```
+15. Write a query to fetch employees with NULL values in the manager_id column.
+```sql
+SELECT *
+FROM employees
+WHERE manager_id IS NULL;
+```
+16. Sort the employees by their hire date in descending order.
+```sql
+SELECT *
+FROM employees
+ORDER BY hire_date DESC; 
+```
+17. Write a query to fetch all columns from a table named `employees`.
+```sql
+SELECT *
+FROM employees;
+```
+
+18. HAVING vs. WHERE. HAVING- used to check conditions *after the aggregation takes place. WHERE- used to check conditins *before aggregation takes place. WHERE does not work with aggregate functions. 
 
     ```sql
     select City, CNT=Count(1)
@@ -325,13 +381,99 @@ AND name! = 'Art Garfunkel'
     WHERE State = 'MA'
     GROUP BY City
     /*gives you table of all cities in MA and number of address in each city*/
-
     ```
+
+19. Write a query to find all orders placed between January 1, 2023 and March 31, 2023, with a total amount exceeding $500.
+
+```sql
+SELECT OrderID, OrderDate, TotalAmount
+FROM Orders
+WHERE OrderDate BETWEEN '2023-01-01' AND '2023-03-31' AND TotalAmount > 500;
+```
+
+ 20. Retrieve all the details of employees who earn more than the average salary of their department.
+
+ 21. Find all products that are either out of stock or have a price higher than $100.
+
+ 22. Find all customers who have placed at least one order.
+```sql
+CREATE TABLE Customers(
+CustomerID INT PRIMARY KEY,
+Name NVARCHAR(50)
+);
+
+CREATE TABLE Orders(
+OrderID INT PRIMARY KEY,
+CustomerID INT
+);
+
+INSERT INTO Customers VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie');
+INSERT INTO Orders VALUES (1,1), (2,1), (3,2);
+
+/*Query*/
+SELECT *
+FROM Customers
+WHERE CustomerID IN (
+SELECT DISTINCT CustomerID 
+FROM Orders
+
+);
+```
+ 23. Get all customers whose names start with the letter 'A' and have an email domain of 'gmail.com'.
+
+ 24. Find all employees who work in the IT, HR, or Finance departments.
+
+ 25. List all customers who have placed more than 5 orders.
+
+ 26. Find all memberships that expire within the next 30 days.
+
+ 27. Get all students who are not enrolled in any courses.
+
+ 28. Find all orders where the total price (quantity x price) exceeds $500.
+
+ 29. Find cities with more than 10 addresses.
+
+ 30. Find product categories with more than $100,000 in total sales and more than 50 transactions.
+
+ 31. Find departments where the maximum employee salary exceeds twice the average salary of all employees.
+
+ 32. List customers whose largest and smallest orders differ by more than $1,000.
+
+ 33. Find all employees hired after 2020 whose average performance score exceeds 85.
+
+ 34. Show the total sales only if the total exceeds $1,000,000.
+
+ 35. Find customers who have placed more than 3 large orders (order amount > $1,000).
+
+```sql
+SELECT CustomerID, 
+```
+
+ 36. Identify product categories where the average price exceeds $50 and the total sales exceed $200,000.
+     ```sql
+     SELECT ProductCategory, AVG(UnitPrice) AS AvgUnitPrice, SUM(SalesAmount) AS SumSalesAmount
+     FROM Products
+     GROUP BY ProductCategory
+     HAVING AVG(UnitPrice) > 50 AND SUM(SalesAmount) > 200000;
+     ```
+
+ 39. Find suppliers whose total shipment value exceeds $1,000,000.
 
     ```sql
-    SELECT City, CNT = COUNT(1)
-    FROM locations
-    GROUP BY City; 
-    
+    SELECT Suppliers.SupplierID, SUM(Orders.OrderTotal) AS TotalShipments
+    FROM Suppliers s 
+    JOIN Orders o ON s.SupplierID = o.OrderTotal 
+    GROUP BY s.SupplierID WHERE SUM(o.OrderTotal) > 1000000;
+     ```
+     **You cannot use the alias 'TotalShipments' in the WHERE clause since WHERE clause is processed before the GROUP BY and aggregation operations, meaning that the alias TotalShipments (defined using SUM(Orders.OrderTotal)) does not yet exist when the WHERE clause is evaluated.
 
-    ```
+ 38. List customers with an average order value between $100 and $500.
+     ```sql
+       SELECT CustomerID, AVG(OrderTotal) AS AvgTotal
+       FROM Orders
+       GROUP BY CustomerID
+
+       HAVING AvgTotal BETWEEN 100 AND 500;
+     ```
+
+
