@@ -620,7 +620,9 @@ ORDER BY parts ASC;
 8. Assume you're given the table on user viewership categorised by device type where the three types are laptop, tablet, and phone.
 
 Write a query that calculates the total viewership for laptops and mobile devices where mobile is defined as the sum of tablet and phone viewership. Output the total viewership for laptops as laptop_reviews and the total viewership for mobile devices as mobile_views.
+
 ![Screenshot 2025-01-11 at 7 18 39 AM](https://github.com/user-attachments/assets/9bd71d65-99cd-4eed-b939-1b6b419407c7)
+
 
 ```sql
 SELECT
@@ -630,31 +632,29 @@ SUM(CASE WHEN device_type IN ('tablet', 'phone') THEN 1 ELSE 0 END) AS mobile_vi
 
 FROM viewership;
 ```
-9. 
-10. d
-11. d
-12. d
-13. d
-14. d
-15. d
-16. d
-17. d
-18. d
-19. d
-20. d
-21. d
-22. d
-23. d
-24. d
-25. d
-26. d
-27. d
-28. d
-29. d
-30. d
-31. d
-32. d
-33. d
-34. d
-35. d
-36. 
+9. Given a table of Facebook posts, for each user who posted at least twice in 2021, write a query to find the number of days between each user’s first post of the year and last post of the year in the year 2021. Output the user and number of the days between each user's first and last post.
+
+    ![Screenshot 2025-01-11 at 10 03 49 AM](https://github.com/user-attachments/assets/85dc75fe-9c15-4a94-a171-31fd569008ea)
+
+
+```sql
+SELECT user_id, MAX(post_date::DATE) - MIN(post_date::DATE) AS days_between
+FROM  posts
+
+WHERE DATE_PART('year', post_date::DATE) = 2021
+GROUP BY user_id
+HAVING COUNT(*) >= 2; 
+```
+
+10. Write a query to identify the top 2 Power Users who sent the highest number of messages on Microsoft Teams in August 2022. Display the IDs of these 2 users along with the total number of messages they sent. Output the results in descending order based on the count of the messages.
+
+![Screenshot 2025-01-11 at 10 23 26 AM](https://github.com/user-attachments/assets/2a145de3-ec66-4d74-b33b-b587327b22ec)
+
+```sql
+SELECT sender_id, COUNT(message_id) AS message_count
+FROM messages
+WHERE DATE_PART('month', sent_date::DATE) = '08' AND DATE_PART('year', sent_date::DATE) = 2022
+GROUP BY sender_id
+SORT BY sender_id DESC
+LIMIT 2; 
+```
