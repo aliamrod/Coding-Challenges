@@ -673,3 +673,6 @@ SELECT user_id, spend, transaction_date
 FROM trans_num
 WHERE row_num = 3; 
 ```
+
+
+12. 
