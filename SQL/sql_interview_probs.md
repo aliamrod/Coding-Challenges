@@ -678,11 +678,304 @@ WHERE row_num = 3;
 12. Tech companies have been laying off employees after a large surge of hires in the past few years. Write a query to determine the percentage of employees that were laid off from each company. Output should include the company and the percentage (to 2 decimal places) of laid off employees. Order by company name alphabetically.
 
 ```sql
-SELECT *,
+SELECT company, ROUND((employees_fired / company_size) * 100, 2)AS percentage
+FROM tech_layoffs
 
-
-FROM tech_layoffs;
-
+ORDER BY company ASC; 
 /*- - Percentage Calc: Employees fired / Company size * 100 */
+
+```
+
+13. Data was input incorrectly into the database. The ID was combined with the First Name. Write a query to separate the ID and First Name into two separate columns. Each ID is 5 characters long.
+
+```sql
+SELECT
+  SUBSTRING(id, 1, 5) AS NewID,  
+  SUBSTRING(id, 6, LEN(id - 5)) AS FirstName
+FROM bad_data; 
+
+```
+
+14. Write a SQL query that outputs department names and their overall revenue over the past 12 months. Sort in order of revenue in descending oder. 
+
+```sql
+CREATE TABLE order(
+
+  order_id INT PRIMARY KEY,
+  customer_id INT
+  order_date TIMESTAMP
+  order_amount INT
+  department_Id INT
+);
+
+CREATE TABLE departments(
+  department_id PRIMARY KEY,
+  department_name VARCHAR(50)
+);
+
+CREATE TABLE customers(
+  customer_id INT PRIMARY KEY,
+  last_name VARCHAR(255),
+  first_name VARCHAR(255)
+);
+
+```
+
+Notes:
+-- department names, total revenue per dept , time: 12 months
+-- order by revenue DESC;
+-- order o, departments d, customers c
+
+-- Use a WHERE clause to take last 12 months.. 
+
+```sql
+SELECT
+  d.department_name,
+  sum(o.order_amount) AS total_revenue
+FROM o
+
+JOIN department d
+ON
+  o.deparment_id = d.department_id
+WHERE
+  o.order_date >= CURRENT_DATE - INTERVAl 12 MONTH
+GROUP BY d.department_name
+
+ORDER BY total_revenue DESC; 
+
+```
+
+or 
+
+
+```sql
+SELECT
+  d.department_name,
+  sum(o.order_amount) as total_revenue
+FROM
+  d.department_id
+JOIN
+  d.department_Id = o.department_id
+
+WHERE
+  o.order_date >= (date_sub() - interval 12 month)
+
+ORDER BY
+  total_revenue DESC; 
+```
+
+Now how many customers ordered from the "Fashion" and "Electronics" department in 2022. 
+
+NOTES: 
+-- We essentially have two WHERE clauses// year and string match department name. 
+
+
+```sql
+SELECT
+  COUNT(DISTINCT o.customer_id) AS unique_customers
+
+FROM
+  order o
+JOIN
+  department d
+ON
+  o.department_id = d.department_id
+WHERE
+  d.department_name = ('Fashion', 'Electronics')
+  AND YEAR(o.order_date) = 2022; 
+
+
+```
+
+or 
+
+```sql
+select
+  count(distinct o.customer_id) as unique_id,
+  d.department_name
+from
+  order o
+join
+  department d
+on
+  o.customer_id = d.customer_id
+where
+  year(o.order_date) = 2022
+and
+  d.department_name in ('Fashion', 'Electronics')
+group by
+  d.department_name asc; 
+```
+
+Now, write a query that can generate Customer IDs belonging to customers with the most orders in each of the last 5 last years. So output should have the individual 5 years, 5 first names, 5 last names, and amount of orders per customer of those years. 
+
+NOTES:
+-- list of cust_id w most orders in the last 5 years
+-- 5 years, 5 last_name, 5 first_name, total amount of orders per customer (NOT a summation clause, but rather a COUNT clause)
+-- customers c, order o
+
+```sql
+with ordercounts as(
+  select
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    year(o.order_date)
+    count(o.order_id) as total_orders
+
+from
+  customers c
+join
+  order o
+on
+  c.customer_id = o.order_id
+where
+  o.order_date in (2025, 2024, 2023, 2022, 2021)
+group by
+  c.customer_id, c.first_name, c.last_name, year(o.order_date)
+
+),
+
+rankedorders as(
+  select *,
+  rank() over (partition by order_year order by total_orders desc) as rank_per_year
+
+  from ordercounts
+
+)
+
+SELECT 
+    order_year,
+    customer_id,
+    first_name,
+    last_name,
+    total_orders
+FROM 
+    RankedOrders
+WHERE 
+    rank_per_year = 1
+ORDER BY 
+    order_year;
+
+```
+
+or 
+
+```sql
+
+with ordersperyear as(
+select
+  c.customer_id,
+  c.first_name,
+  c.last_name, 
+  year(o.order_date) as years,
+  count(o.order_id) as total_orders, 
+  rank() over (partition by year(order_date) order by count(o.order_id) desc) order_rankings
+
+from
+  order o
+join
+  customers c
+on
+  o.customer_id = c.customer_id
+where
+  o.order_date in (2025, 2024, 2023, 2022, 2021)
+
+group by
+  year(o.order_date), c.customer_id, c.first_name, c.last_name
+)
+
+select
+  first_name, last_name, total_orders, year
+from
+  orders
+where orders_ranked = 2
+order by years asc
+```
+
+
+Now write query that selects the second highest order amount in the 'Fashion' Department. 
+
+NOTES:
+-- revenue amount 
+-- orders o, department d
+
+```sql
+select
+  cte as(
+select
+  d.deparment_name,
+  o.order_amount,
+  rank() over (partition by d.department_name order by o.order_amount desc) as amount_ranking
+
+from
+  orders o
+join
+  departments d
+on
+  o.department_Id = d.department_id
+where
+  d.department_name = 'Fashion'
+
+)
+
+select
+  order_amount
+
+from
+  cte
+where amount_ranking = 2; 
+
+
+```
+Also can use the generic query: 
+```sql
+select * from employee
+where salary = (select distinct(salary) from employee order by salary DESC LIMIT n-1, 1);
+```
+
+
+Lastly, show the department that had the highest month-over-month increase in order amount in December 2022.
+
+NOTES:
+- so highest order amount different from nov->dec)
+- cte1: go through and filter out for orders in nov2022 and dec2022
+- cte2: now that you have totals, subtract this difference
+
+```sql
+
+with nov_to_dec_amounts(
+
+select
+  department_id,
+  sum(order_amount) as order_amount_per_month, 
+  date_format(order_date, '%Y-%M') as y_m_date
+from
+  orders
+where date_format(order_date, '%Y-%M') in ('2022-11', '2022-12')
+group by
+  department_id,
+  date_format(order_date, '%Y-%M')
+),
+
+mom_totals(
+
+select
+  department_id,
+  (order_amount_per_month - lag(order_amount_per_month) over (partition by department_id order by y_m_date) month_to_month_increase
+
+from nov_to_dec_amounts
+where y_m_date = '2022-12'
+
+order by y_m_date, department_id
+)
+
+select
+from mom_totals m
+
+join
+  departments d
+on
+  m.department_id = d.department_id
 
 ```
