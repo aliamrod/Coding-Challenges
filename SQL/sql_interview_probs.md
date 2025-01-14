@@ -979,3 +979,73 @@ on
   m.department_id = d.department_id
 
 ```
+
+
+
+
+
+15. Client spends money across 4 different marketing channels and they want to know which are the most effect. Two tables we're starting with:
+
+--attribution table
+*session_id, str
+* marketing_channel, str
+* purchasing_value, float
+
+--user_sessions table
+* session_id, str
+* ad_click_timestamp, datetime
+* user_id, str
+
+Now, what is the average purchase value by marketing channel. 
+
+```sql
+select
+  marketing_channel,
+  avg(purchasing_value) as avg_purchase_value
+from
+  attribution_table
+group by
+  marketing_channel
+order by
+  avg_purchase_value DESC;
+```
+
+Now, what percentage of link clicks convert to a purchase for each marketing channel?
+
+```sql
+WITH clicks_and_purchases AS(
+  SELECT
+    us.marketing_channel,
+    COUNT(DISTINCT us.session_id) AS total_clicks
+    COUNT(DISTINCT CASE WHEN at.purchasing_value > 0 THEN us.session_id END) AS total_purchases
+FROM
+  user_sessions us
+JOIN
+  attribution_table at
+ON
+  us.session_id = at.session_id
+GROUP BY
+  us.marketing_channel
+)
+
+SELECT
+  marketing_channel,
+  total_clicks,
+  total_purchases,
+  (total_purchases * 100.0 / total_clicks) AS conversion_rate
+FROM
+  clicks_and_purchases
+ORDER BY
+  conversion_rate DESC; 
+```
+
+```sql
+SELECT
+  marketing_channel,
+  AVG(purchasing_value) AS avg_purchase,
+  AVG(CASE WHEN purchasing_value > 0 THEN 1 ELSE 0 END) AS conversion_rate
+FROM attribution_table
+
+ORDER BY
+  AVG(CASE WHEN purchasing_value > 0 THEN 1 ELSE 0 END) DESC; 
+```
