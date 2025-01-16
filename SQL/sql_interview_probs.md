@@ -1049,3 +1049,42 @@ FROM attribution_table
 ORDER BY
   AVG(CASE WHEN purchasing_value > 0 THEN 1 ELSE 0 END) DESC; 
 ```
+
+Now, what is the customer lifetime value for each user. 
+NOTES: 
+- - summation of their purchase value -> so perform inner join on session_id --> consequently aggregate on user_id.
+
+```sql
+select
+  u.user_id, sum(a.purchasing_value) as clv
+from
+  user_sessions u
+inner join 
+  attribution
+on
+  u.session_id = a.session_id
+
+group by
+  u.user_id
+order by
+  sum(a.purchasing_value) desc; 
+```
+
+Now, define high value users as CLV > 100. 
+
+```sql
+select
+  u.user_id, sum(a.purchasing_value) as clv
+from
+  user_sessions u
+inner join
+  attribution a
+on
+  u.session_id = a.session_id
+group by
+  u.user_id
+having
+  sum(a.purchasing_value) > 100
+order by
+  sum(a.purchasing_value) desc; 
+```
