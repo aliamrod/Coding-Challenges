@@ -1088,3 +1088,32 @@ having
 order by
   sum(a.purchasing_value) desc; 
 ```
+
+**Since 'clv' comes after GROUP BY clause, we follow with 'having sum(a.purchasing_value) > 100... 
+
+Now, first touch attribution is an analysis through which the user first encounters the product. Perform first touch attribution for all 'high value customers'. 
+
+NOTES:
+-- first attribution -> what marketing channel they first encountered the product
+-- requires 2 queries--> q1 => figurre out who are the high value users are ; q2=> figure out the 1st touch for each user by datetime();
+
+
+
+```sql
+/*determine high value users*/
+
+SELECT
+  u.user_id, sum(a.purchasing_value) as clv
+FROM
+  user_sessions u
+JOIN
+  attribution a
+ON
+  u.session_id = a.session_id
+GROUP BY
+  u.user_id
+HAVING
+  SUM(a.purchasing_value) > 100
+```
+
+
