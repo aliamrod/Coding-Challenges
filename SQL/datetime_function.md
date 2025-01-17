@@ -14,5 +14,11 @@ Column Name	Data Type	Description
 task_id	INT	Unique identifier for each task.
 assigned_date	DATETIME	The date and time when the task was assigned.
 deadline_date	DATETIME	The date and time when the task is due.
-completion_date	DATETIME	The date and time when the task was completed. Can be NULL if not completed.
-/*```
+completion_date	DATETIME	The date and time when the task was completed. Can be NULL if not completed.*/
+```
+
+Write a SQL query to answer the following. 
+
+* Tasks completed on time.
+* Average duration for completed tasks.
+* Overdue tasks by Month. 
