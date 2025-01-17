@@ -1095,25 +1095,166 @@ Now, first touch attribution is an analysis through which the user first encount
 
 NOTES:
 -- first attribution -> what marketing channel they first encountered the product
--- requires 2 queries--> q1 => figurre out who are the high value users are ; q2=> figure out the 1st touch for each user by datetime();
+-- requires 2 queries--> q1 => figure out who are the high value users are ; q2=> figure out the 1st touch for each user by datetime();
 
 
 
 ```sql
 /*determine high value users*/
 
+/*create subquery within this query...*/
+
+/*SOLUTION 1*/
+
+WITH high_value_users AS(
+  SELECT u.user_id, SUM(a.purchasing_vaule) AS clv
+  FROM user_sessions u
+  INNER JOIN attribution_table a
+  ON u.session_id = a.session_id
+
+  GROUP BY u.user_id
+  HAVING SUM(a.purchasing_value) > 100
+
+  ORDER BY SUM(a.purchasing_value) > 100 DESC
+
+), 
+
+first_touch AS(
+SELECT u.user_id, MIN(u.ad_click_timestamp) AS first_touch_time
+FROM user_sessions u
+
+INNER JOIN high_value_users hv
+ON u.user_id = hv.user_id
+
+GROUP BY u.user_id
+),
+
+first_touch_attributions AS(
+
+/*Associate the first touch with the marketing channel*/
 SELECT
-  u.user_id, sum(a.purchasing_value) as clv
+  ft.user_id,
+  us.marketing_channel,
+  ft.first_touch_time
 FROM
+  first_touch fg
+INNER JOIN
   user_sessions u
-JOIN
-  attribution a
 ON
-  u.session_id = a.session_id
-GROUP BY
-  u.user_id
-HAVING
-  SUM(a.purchasing_value) > 100
+ft.user_id = u.user_id
+
+AND
+ft.first_touch_time = us.ad_click_timestamp
+
+),
+
+SELECT
+fta.marketing_channel,
+COUNT(DISTINCT fta.user_id) AS high_value_users_count
+
+FROM first_touch_attribution fta
+GROUP BY fta.marketing_channel
+ORDER BY high_value_users_count DESC; 
+
+
 ```
 
 
+
+-attribution table
+*session_id, str
+* marketing_channel, str
+* purchasing_value, float
+
+--user_sessions table
+* session_id, str
+* ad_click_timestamp, datetime
+* user_id, str
+
+
+Now, what percentage of users came from each marketing channel?
+
+NOTES:
+-- add from previous query
+```sql
+
+WITH high_value_users AS(
+  SELECT u.user_id, SUM(a.purchasing_vaule) AS clv
+  FROM user_sessions u
+  INNER JOIN attribution_table a
+  ON u.session_id = a.session_id
+
+  GROUP BY u.user_id
+  HAVING SUM(a.purchasing_value) > 100
+
+  ORDER BY SUM(a.purchasing_value) > 100 DESC
+
+), 
+
+first_touch AS(
+SELECT u.user_id, MIN(u.ad_click_timestamp) AS first_touch_time
+FROM user_sessions u
+
+INNER JOIN high_value_users hv
+ON u.user_id = hv.user_id
+
+GROUP BY u.user_id
+),
+
+first_touch_attributions AS(
+
+/*Associate the first touch with the marketing channel*/
+SELECT
+  ft.user_id,
+  us.marketing_channel,
+  ft.first_touch_time
+FROM
+  first_touch fg
+INNER JOIN
+  user_sessions u
+ON
+ft.user_id = u.user_id
+
+AND
+ft.first_touch_time = us.ad_click_timestamp
+
+),
+
+SELECT
+fta.marketing_channel,
+COUNT(DISTINCT fta.user_id) / (COUNT (*) FROM high_value) AS percentage
+
+FROM first_touch_attribution fta
+GROUP BY fta.marketing_channel
+ORDER BY high_value_users_count DESC; 
+```
+
+
+
+
+
+13. Assume you work as a Data Scientist at an eCommerce company. We have three tables in the database:
+
+    /*
+    transactions table
+    Column Type
+    id INTEGER
+    user_id INTEGER
+    created_at DATETIME
+    product_id INTEGER
+    quantity INTEGER
+
+
+    products table
+    Column Type
+    id INTEGER
+    name VARCHAR
+    price FLOAT
+
+
+    users table
+    Column Type
+    id INTEGER
+    name VARCHAR
+    sex VARCHAR
+    */
