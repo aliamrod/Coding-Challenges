@@ -1258,3 +1258,29 @@ ORDER BY high_value_users_count DESC;
     name VARCHAR
     sex VARCHAR
     */
+
+
+
+    Write a query that reports the number of users, number of transaction  placed, and total amount per month in the year 2020.
+
+-- Monthly reporting of KPIs
+SELECT 
+  date_part('month', created_at) as month_date,
+  count(distinct user_id) num_customers, 
+--each row in transactions table pertains to an order
+  count(txn.id) num_orders,
+  
+-- order amount is price*quantity
+  sum(p.price*txn.quantity) order amount
+  
+FROM
+  transactions txn
+JOIN 
+  products p
+ON
+  txn.id = p.id
+WHERE
+  date_part('year', created_at)
+GROUP BY 
+  date_part('month', created_at);
+  
