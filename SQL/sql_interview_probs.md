@@ -1283,4 +1283,122 @@ WHERE
   date_part('year', created_at)
 GROUP BY 
   date_part('month', created_at);
+
+
+********
+
+
+
+14. Find the employees earning more than their managers. Output the employee's first name along with their corresponding salary.
+
+/*
+
+employees
+id: Int
+first_name: varchar
+last_name: varchar
+age: int
+sex: varchar
+employee_title: varchar
+department: varchar
+salary: int
+target: int
+bonus: int
+email: varchar
+city: varchar
+address: varchar
+manager_id: int
+*/
+
+Solution 1: 
+
+```sql
+SELECT
+  e.first_name AS EmployeeName,
+  e.salary AS EmployeeSalary
+FROM
+  employees e
+LEFT JOIN
+  employees m
+ON
+  e.manager_id = m.id
+WHERE
+  e.salary > m.salary;
+
+```
+
+Solution 2: 
+
+```sql
+(select id, first_name, salary, manager_id from employees)a
+
+left JOIN
+(select id as manager_id, salary as manager_salary from employees) b
+
+on a.manager_id = b.manager_id
+
+where a.salary > b.manager_salary
+
+```
+
+
+
+
+
+
+15. This is a social media company interested in 'growth hacking'-- interested in how frequently people post and how successful these posts are. They intend to increase the usage of the post feature as a proxy of User Engagement.
+
+Write a query to output the total number of successful posts per user type in the last month. 
+
+/*
+
+post_user
+user_id : int
+user_type : varchar 
+age : int
+
+post
+post_id : Int
+post_date : datetime
+user_id : int
+interface : varchar
+is_successful_post : int
+
+-- social media company - engagement - posting success
+-- output: by user, post success rate. 
+
+-- user
+-- # of successful post
+-- 
+
+*/
+
+    ```sql
+
+
+
+    ```
+
+
+
+```sql
+SELECT
+  user_id
+
+```
+
+
+
+8
+
+
+16. l3
+17. l4
+18. l5
+19. l6
+20. l7
+21. l8
+22. l9
+23. l10
+24. l11
   
