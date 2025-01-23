@@ -1259,14 +1259,18 @@ ORDER BY high_value_users_count DESC;
     sex VARCHAR
     */
 
-
+```sql
 
     Write a query that reports the number of users, number of transaction  placed, and total amount per month in the year 2020.
 
 -- Monthly reporting of KPIs
-SELECT 
+SELECT
   date_part('month', created_at) as month_date,
   count(distinct user_id) num_customers, 
+--each row in transactions table pertains to an order
+   num_orders
+
+
 --each row in transactions table pertains to an order
   count(txn.id) num_orders,
   
